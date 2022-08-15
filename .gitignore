@@ -1,0 +1,8 @@
+# Dependencias
+node_modules
+
+# Docker
+docker/postgres/data
+
+# Parametros
+.env
