@@ -11,6 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+        // define association here
+        postulaciones.belongsTo(models.postulantes// modelo al que pertenece
+        ,{
+          as : 'Postulante',  // nombre de mi relacion
+          foreignKey: 'fk_id_postulante'     // campo con el que voy a igualar
+        }),
+        postulaciones.belongsTo(models.ofertas// modelo al que pertenece
+        ,{
+          as : 'Oferta',  // nombre de mi relacion
+          foreignKey: 'fk_id_oferta'     // campo con el que voy a igualar
+        })
     }
   }
   postulaciones.init({

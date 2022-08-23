@@ -1,12 +1,14 @@
 import express from 'express';
 import {
-  getOfertasPorIdEmpresa
-} from '../controllers/ofertasPorEmpresa';
+  getConFiltros,
+  postPostulaciones
+} from '../controllers/postulaciones';
 import { withErrorHandling } from './utils';
 import { validateToken } from '../middlewares/validador';
 
 const router = express.Router();
 
-router.get('/:id', withErrorHandling(getOfertasPorIdEmpresa));
+router.get('/', withErrorHandling(getConFiltros));
+router.post('/', withErrorHandling(postPostulaciones));
 
 export default router;

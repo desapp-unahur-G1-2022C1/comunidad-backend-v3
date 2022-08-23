@@ -7,7 +7,7 @@ export const getConFiltros = async (req, res) => {
   let ordenarPor = req.query.ordenar;
   let buscarApellido = req.query.buscarApellido;
   let buscarNombre = req.query.buscarNombre;
-  let buscarDNI = req.query.buscarDNI;
+  //let buscarDNI = req.query.buscarDNI;
 
   let pagina = 0;
   if (!Number.isNaN(paginaComoNumero) && paginaComoNumero > 0) {
@@ -22,11 +22,11 @@ export const getConFiltros = async (req, res) => {
   if (typeof ordenarPor === "undefined") {
     ordenarPor = "createdAt";
   }
-
+/*
   if (typeof buscarDNI === "undefined") {
     buscarDNI = "";
   }
-
+*/
   if (typeof buscarNombre === "undefined") {
     buscarNombre = "";
   }
@@ -183,7 +183,7 @@ const findPostulantesPorDNI = (
     .catch(() => onError());
 };
 
-export const getPorDNI = async (req, res) => {
+export const getPorId = async (req, res) => {
   findPostulantesPorDNI(req.params.id, {
     onSuccess: (postulantes) => res.send(postulantes),
     onNotFound: () => res.sendStatus(401),
