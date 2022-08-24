@@ -34,7 +34,6 @@ export const getConFiltros = async (req, res) => {
     buscarApellido = buscarNombre
   }
 
-  console.log("imprimo nombre y apellido spit",buscarApellido, buscarNombre)
   models.postulantes
     .findAndCountAll({
       limit: limite,
