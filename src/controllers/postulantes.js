@@ -5,8 +5,8 @@ export const getConFiltros = async (req, res) => {
   const paginaComoNumero = Number.parseInt(req.query.pagina);
   const limiteComoNumero = Number.parseInt(req.query.limite);
   let ordenarPor = req.query.ordenar;
-  let buscarApellido = req.query.buscarApellido;
-  let buscarNombre = req.query.buscarNombre;
+  let buscarPostulante = req.query.buscarPostulante;
+
   //let buscarDNI = req.query.buscarDNI;
 
   let pagina = 0;
@@ -22,19 +22,19 @@ export const getConFiltros = async (req, res) => {
   if (typeof ordenarPor === "undefined") {
     ordenarPor = "createdAt";
   }
-/*
-  if (typeof buscarDNI === "undefined") {
-    buscarDNI = "";
-  }
-*/
-  if (typeof buscarNombre === "undefined") {
-    buscarNombre = "";
+
+  let buscarNombre = "_"
+  let buscarApellido = "_"
+  if (typeof buscarPostulante !== "undefined"){
+    buscarNombre = req.query.buscarPostulante.split(" ",2)[0];
+    buscarApellido = req.query.buscarPostulante.split(" ",2)[1];
   }
 
-  if (typeof buscarApellido === "undefined") {
-    buscarApellido = "";
+  if (typeof buscarApellido === "undefined"){
+    buscarApellido = buscarNombre
   }
 
+  console.log("imprimo nombre y apellido spit",buscarApellido, buscarNombre)
   models.postulantes
     .findAndCountAll({
       limit: limite,
@@ -67,7 +67,7 @@ export const getConFiltros = async (req, res) => {
         },
       ],
       where: {
-        [Op.and]: [
+        [Op.or]: [
           {
             nombre: {
               [Op.iLike]: `%${buscarNombre}%`,

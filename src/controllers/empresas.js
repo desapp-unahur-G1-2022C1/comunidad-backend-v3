@@ -25,7 +25,7 @@ export const getConFiltros = async (req, res) => {
   if (typeof nombreEmpresa === "undefined") {
     nombreEmpresa = "_";
   } else {
-    let nombreEmpresa = nombreEmpresa.replace(/\s/g, "%");
+    nombreEmpresa = req.query.nombreEmpresa.replace(/\s/g, "%");
   }
 
   models.empresas
