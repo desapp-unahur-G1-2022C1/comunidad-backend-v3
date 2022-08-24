@@ -102,3 +102,37 @@ export const getPorId = async (req, res) => {
     onError: () => res.sendStatus(500),
   });
 };
+
+const findEmpresasPorIdUsuario = (fk_id_usuario, { onSuccess, onNotFound, onError }) => {
+  models.empresas
+    .findOne({
+      include: [
+        {
+          as: "Usuario",
+          model: models.usuarios,
+          attributes: ["id", "usuario"],
+        },
+        {
+          as: "Rubro",
+          model: models.rubros,
+          attributes: ["id", "nombre_rubro"],
+        },
+        {
+          as: "Estado",
+          model: models.estado_empresas,
+          attributes: ["id", "nombre_estado"],
+        },
+      ],
+      where: { fk_id_usuario },
+    })
+    .then((empresas) => (empresas ? onSuccess(empresas) : onNotFound()))
+    .catch(() => onError());
+};
+
+export const getPorIdUsuario = async (req, res) => {
+  findEmpresasPorIdUsuario(req.params.id, {
+    onSuccess: (empresas) => res.send(empresas),
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500),
+  });
+};
