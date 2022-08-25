@@ -1,3 +1,5 @@
+import { BOOLEAN } from "sequelize";
+
 const models = require("../../database/models");
 const { Op } = require("sequelize");
 
@@ -178,4 +180,40 @@ export const getOfertasPorIdEmpresa = async (req, res) => {
     onNotFound: () => res.sendStatus(404),
     onError: () => res.sendStatus(500),
   });
+};
+
+export const postOfertas = async (req, res) => {
+  models.ofertas
+    .create({
+      fk_id_empresa: req.body.idEmpresa,
+      fk_id_jornada: req.body.idJornada,
+      fk_id_contrato: req.body.idContrato,
+      fk_id_estudio: req.body.idEstudio,
+      fk_id_carrera: req.body.idCarrera,
+      fk_id_estado: 2,
+      fecha_vigencia: req.body.fechqVigencia,             
+      titulo_oferta: req.body.tituloOferta,          
+      descripcion: req.body.descripcion,            
+      horario_laboral_desde: req.body.horarioLaboralDesde,  
+      horario_laboral_hasta: req.body.horarioLaboralHasta,  
+      edad_desde: req.body.edadDesde,             
+      edad_hasta: req.body.edadHasta,             
+      experiencia_previa_desc: req.body.experienciaPreviaDec,
+      zona_trabajo: req.body.zonaTrabajo,           
+      areas_estudio: req.body.areasEstudio,          
+      otros_detalles: req.body.otrosDetalles,         
+      beneficios: req.body.beneficios,             
+      remuneracion: req.body.remuneracion
+    })
+    .then(
+      (ofertas) => res.status(201).send({ id: ofertas.id }),
+    )
+    .catch((error) => {
+      if (error == "SequelizeUniqueConstraintError: Validation error") {
+        res.status(401).send("Bad request: el cuit no existe");
+      } else {
+        console.log(`Error al intentar insertar en la base de datos: ${error}`);
+        res.sendStatus(500);
+      }
+    });
 };
