@@ -244,3 +244,65 @@ const enableUser = (id_usuario) => {
     }
   );
 };
+
+export const deletePostulante = async (req, res) => {
+  const onSuccess = postulantes =>
+  postulantes
+      .destroy()
+      .then(() => res.sendStatus(200))
+      .catch(() => res.sendStatus(500));
+    findPostulantesPorDNI(req.params.id, {
+    onSuccess,
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500)
+  });
+};
+
+export const updatePostulante = async (req, res) => {
+  const onSuccess = (postulantes) =>
+  postulantes
+      .update(
+        {
+          fk_id_tipo_documento: req.body.tipoDocumento,
+          fk_id_usuario: req.body.idUsuario,
+          fk_id_estudios: req.body.estudios,
+          fk_id_carrera: req.body.carrera,
+          fk_id_estado: req.body.estado,
+          nombre: req.body.nombre,
+          apellido: req.body.apellido,
+          nacionalidad: req.body.nacionalidad,
+          fecha_nac: req.body.fecha_nac,
+          pais: req.body.pais,
+          provincia: req.body.provincia,
+          ciudad: req.body.ciudad,
+          calle: req.body.calle,
+          nro: req.body.nro,
+          piso: req.body.piso,
+          depto: req.body.depto,
+          cp: req.body.cp,
+          telefono: req.body.telefono,
+          cant_materias: req.body.cantMaterias,
+          alumno_unahur: req.body.alumnoUnahur,
+          presentacion: req.body.presentacion,
+        },
+          { fields: ["fk_id_tipo_documento", "fk_id_usuario","fk_id_estudios","fk_id_carrera","fk_id_estado","nombre","apellido","nacionalidad","fecha_nac","pais","provincia","ciudad","calle","nro","piso","depto","cp","telefono","cant_materias","alumno_unahur","presentacion"] }
+      )
+      .then(() => res.sendStatus(200))
+      .catch((error) => {
+        if (error == "SequelizeUniqueConstraintError: Validation error") {
+          res
+            .status(400)
+            .send("Bad request: Algun tipo de error de validacion de campos");
+        } else {
+          console.log(
+            `Error al intentar actualizar la base de datos: ${error}`
+          );
+          res.sendStatus(500);
+        }
+      });
+      findPostulantesPorDNI(req.params.id, {
+    onSuccess,
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500),
+  });
+};

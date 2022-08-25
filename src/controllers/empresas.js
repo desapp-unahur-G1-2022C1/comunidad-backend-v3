@@ -136,3 +136,97 @@ export const getPorIdUsuario = async (req, res) => {
     onError: () => res.sendStatus(500),
   });
 };
+
+export const deleteEmpresa = async (req, res) => {
+  const onSuccess = empresas =>
+  empresas
+      .destroy()
+      .then(() => res.sendStatus(200))
+      .catch(() => res.sendStatus(500));
+  findEmpresas(req.params.id, {
+    onSuccess,
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500)
+  });
+};
+
+export const postEmpresa = async (req, res) => {
+  models.empresas
+    .create({
+      id:  req.body.cuit,
+      fk_id_usuario: req.body.idUsuario,     
+      fk_id_rubro: req.body.idRubro,          
+      fk_id_estado: req.body.idEstado,         
+      nombre_empresa: req.body.nombreEmpresa,       
+      descripcion: req.body.descripcion,          
+      pais: req.body.pais,                
+      provincia: req.body.provincia,            
+      ciudad: req.body.ciudad,               
+      calle: req.body.calle,                
+      nro: req.body.nro,                  
+      piso: req.body.piso,                 
+      depto: req.body.depto,                
+      cp: req.body.cp,                   
+      telefono: req.body.telefono,             
+      web: req.body.web,                  
+      nombre_representante: req.body.nombreRepresentante, 
+      email_representante: req.body.emailRepresentante,  
+      logo: "logo.jpg" 
+    })
+    .then(
+      (empresas) => res.status(201).send({ id: empresas.id }),
+    )
+    .catch((error) => {
+      if (error == "SequelizeUniqueConstraintError: Validation error") {
+        res.status(401).send("Bad request: Algun tipo de error de validacion de campos");
+      } else {
+        console.log(`Error al intentar insertar en la base de datos: ${error}`);
+        res.sendStatus(500);
+      }
+    });
+};
+
+export const updateEmpresa = async (req, res) => {
+  const onSuccess = (empresas) =>
+  empresas
+      .update(
+        {
+          fk_id_usuario: req.body.idUsuario,     
+          fk_id_rubro: req.body.idRubro,          
+          fk_id_estado: req.body.idEstado,         
+          nombre_empresa: req.body.nombreEmpresa,       
+          descripcion: req.body.descripcion,          
+          pais: req.body.pais,                
+          provincia: req.body.provincia,            
+          ciudad: req.body.ciudad,               
+          calle: req.body.calle,                
+          nro: req.body.nro,                  
+          piso: req.body.piso,                 
+          depto: req.body.depto,                
+          cp: req.body.cp,                   
+          telefono: req.body.telefono,             
+          web: req.body.web,                  
+          nombre_representante: req.body.nombreRepresentante, 
+          email_representante: req.body.emailRepresentante, 
+        },
+        { fields: ["fk_id_usuario", "fk_id_rubro", "fk_id_estado","nombre_empresa","descripcion","pais","provincia","descripcion","ciudad","calle","nro","piso","depto","cp","telefono","web","nombre_representante","email_representante"] }
+      )
+      .then(() => res.sendStatus(200))
+      .catch((error) => {
+        if (error == "SequelizeUniqueConstraintError: Validation error") {
+          res
+            .status(400)
+            .send("Bad request: Algun tipo de error de validacion de campos");
+        } else {
+          console.log(
+            `Error al intentar actualizar la base de datos: ${error}`
+          );
+          res.sendStatus(500);
+        }
+      });
+      findEmpresas(req.params.id, {
+    onSuccess,
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500),
+  });
+};

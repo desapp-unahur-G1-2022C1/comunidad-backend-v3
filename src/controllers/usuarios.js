@@ -111,3 +111,25 @@ export const getAll = async (req, res) => {
     )
     .catch(() => res.sendStatus(400));
 };
+
+const findUsuarioPorId = (id, { onSuccess, onNotFound, onError }) => {
+  models.usuarios
+    .findOne({
+      where: { id },
+    })
+    .then((usuarios) => (usuarios ? onSuccess(usuarios) : onNotFound()))
+    .catch(() => onError());
+};
+
+export const deleteUsuario = async (req, res) => {
+  const onSuccess = postulaciones =>
+  postulaciones
+      .destroy()
+      .then(() => res.sendStatus(200))
+      .catch(() => res.sendStatus(500));
+      findUsuarioPorId(req.params.id, {
+    onSuccess,
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500)
+  });
+};

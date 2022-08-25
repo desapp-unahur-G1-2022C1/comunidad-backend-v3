@@ -2,7 +2,10 @@ import express from 'express';
 import {
   getConFiltros,
   getPorId,
-  getPorIdUsuario
+  getPorIdUsuario,
+  deleteEmpresa,
+  postEmpresa,
+  updateEmpresa
 
 } from '../controllers/empresas';
 import { withErrorHandling } from './utils';
@@ -13,5 +16,8 @@ const router = express.Router();
 router.get('/', withErrorHandling(getConFiltros));
 router.get('/cuit/:id', withErrorHandling(getPorId));
 router.get('/idUsuario/:id', withErrorHandling(getPorIdUsuario));
+router.delete('/cuit/:id', withErrorHandling(deleteEmpresa));
+router.post('/',withErrorHandling(postEmpresa));
+router.put('/cuit/:id',withErrorHandling(updateEmpresa));
 
 export default router;

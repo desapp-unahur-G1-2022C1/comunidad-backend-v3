@@ -3,7 +3,9 @@ import {
   getConFiltros,
   getPorId,
   getPorIdUsuario,
-  postPostulante
+  postPostulante,
+  deletePostulante,
+  updatePostulante
 } from '../controllers/postulantes';
 import { withErrorHandling } from './utils';
 import { validateToken } from '../middlewares/validador';
@@ -14,5 +16,7 @@ router.get('/', withErrorHandling(getConFiltros));
 router.get('/idUsuario/:id', withErrorHandling(getPorIdUsuario));
 router.get('/dni/:id', withErrorHandling(getPorId));
 router.post('/', withErrorHandling(postPostulante));
+router.delete('/dni/:id', withErrorHandling(deletePostulante));
+router.put('/dni/:id', withErrorHandling(updatePostulante));
 
 export default router;

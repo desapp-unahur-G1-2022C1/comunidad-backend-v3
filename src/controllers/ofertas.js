@@ -25,7 +25,7 @@ export const getConFiltros = async (req, res) => {
   if (typeof buscarTitulo === "undefined") {
     buscarTitulo = "_";
   } else {
-    let buscarTitulo = buscarTitulo.replace(/\s/g, "%");
+    buscarTitulo = buscarTitulo.replace(/\s/g, "%");
   }
 
   models.ofertas
@@ -133,7 +133,10 @@ export const getPorId = async (req, res) => {
   });
 };
 
-const findOfertaPorIdEmpresa = (fk_id_empresa, { onSuccess, onNotFound, onError }) => {
+const findOfertaPorIdEmpresa = (
+  fk_id_empresa,
+  { onSuccess, onNotFound, onError }
+) => {
   models.ofertas
     .findAll({
       include: [
@@ -168,7 +171,7 @@ const findOfertaPorIdEmpresa = (fk_id_empresa, { onSuccess, onNotFound, onError 
           attributes: ["id", "nombre_estado"],
         },
       ],
-      where: { fk_id_empresa }
+      where: { fk_id_empresa },
     })
     .then((ofertas) => (ofertas ? onSuccess(ofertas) : onNotFound()))
     .catch(() => onError());
@@ -191,29 +194,86 @@ export const postOfertas = async (req, res) => {
       fk_id_estudio: req.body.idEstudio,
       fk_id_carrera: req.body.idCarrera,
       fk_id_estado: 2,
-      fecha_vigencia: req.body.fechaVigencia,             
-      titulo_oferta: req.body.tituloOferta,          
-      descripcion: req.body.descripcion,            
-      horario_laboral_desde: req.body.horarioLaboralDesde,  
-      horario_laboral_hasta: req.body.horarioLaboralHasta,  
-      edad_desde: req.body.edadDesde,             
-      edad_hasta: req.body.edadHasta,             
+      fecha_vigencia: req.body.fechaVigencia,
+      titulo_oferta: req.body.tituloOferta,
+      descripcion: req.body.descripcion,
+      horario_laboral_desde: req.body.horarioLaboralDesde,
+      horario_laboral_hasta: req.body.horarioLaboralHasta,
+      edad_desde: req.body.edadDesde,
+      edad_hasta: req.body.edadHasta,
       experiencia_previa_desc: req.body.experienciaPreviaDesc,
-      zona_trabajo: req.body.zonaTrabajo,           
-      areas_estudio: req.body.areasEstudio,          
-      otros_detalles: req.body.otrosDetalles,         
-      beneficios: req.body.beneficios,             
-      remuneracion: req.body.remuneracion
+      zona_trabajo: req.body.zonaTrabajo,
+      areas_estudio: req.body.areasEstudio,
+      otros_detalles: req.body.otrosDetalles,
+      beneficios: req.body.beneficios,
+      remuneracion: req.body.remuneracion,
     })
-    .then(
-      (ofertas) => res.status(201).send({ id: ofertas.id }),
-    )
+    .then((ofertas) => res.status(201).send({ id: ofertas.id }))
     .catch((error) => {
       if (error == "SequelizeUniqueConstraintError: Validation error") {
-        res.status(401).send("Bad request: el cuit no existe");
+        res.status(401).send("Bad request: Algun tipo de error de validacion de campos");
       } else {
         console.log(`Error al intentar insertar en la base de datos: ${error}`);
         res.sendStatus(500);
       }
     });
+};
+
+export const deleteOferta = async (req, res) => {
+  const onSuccess = (ofertas) =>
+    ofertas
+      .destroy()
+      .then(() => res.sendStatus(200))
+      .catch(() => res.sendStatus(500));
+  findOferta(req.params.id, {
+    onSuccess,
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500),
+  });
+};
+
+export const updateOfertas = async (req, res) => {
+  const onSuccess = (ofertas) =>
+    ofertas
+      .update(
+        {
+          fk_id_jornada: req.body.idJornada,
+          fk_id_contrato: req.body.idContrato,
+          fk_id_estudio: req.body.idEstudio,
+          fk_id_carrera: req.body.idCarrera,
+          fk_id_estado: req.body.estado,
+          fecha_vigencia: req.body.fechaVigencia,
+          titulo_oferta: req.body.tituloOferta,
+          descripcion: req.body.descripcion,
+          horario_laboral_desde: req.body.horarioLaboralDesde,
+          horario_laboral_hasta: req.body.horarioLaboralHasta,
+          edad_desde: req.body.edadDesde,
+          edad_hasta: req.body.edadHasta,
+          experiencia_previa_desc: req.body.experienciaPreviaDesc,
+          zona_trabajo: req.body.zonaTrabajo,
+          areas_estudio: req.body.areasEstudio,
+          otros_detalles: req.body.otrosDetalles,
+          beneficios: req.body.beneficios,
+          remuneracion: req.body.remuneracion,
+        },
+        { fields: ["fk_id_jornada", "fk_id_contrato", "fk_id_estudio","fk_id_carrera","fk_id_estado","fecha_vigencia","titulo_oferta","descripcion","horario_laboral_desde","horario_laboral_hasta","edad_desde","edad_hasta","experiencia_previa_desc","zona_trabajo","areas_estudio","otros_detalles","beneficios","remuneracion"] }
+      )
+      .then(() => res.sendStatus(200))
+      .catch((error) => {
+        if (error == "SequelizeUniqueConstraintError: Validation error") {
+          res
+            .status(400)
+            .send("Bad request: Algun tipo de error de validacion de campos");
+        } else {
+          console.log(
+            `Error al intentar actualizar la base de datos: ${error}`
+          );
+          res.sendStatus(500);
+        }
+      });
+  findOferta(req.params.id, {
+    onSuccess,
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500),
+  });
 };
