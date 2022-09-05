@@ -2,8 +2,92 @@ const models = require("../../database/models");
 const { Op } = require("sequelize");
 
 
-export const getConFiltros = async (req, res) => {
+export const getPorIdPostulante = async (req, res) => {
 
+  let paginaComoNumero = Number.parseInt(req.query.pagina);
+  let limiteComoNumero = Number.parseInt(req.query.limite);
+  let idPostulante = req.query.id;
+
+  let pagina = 0;
+  if (!Number.isNaN(paginaComoNumero) && paginaComoNumero > 0) {
+    pagina = paginaComoNumero;
+  }
+
+  let limite = 30;
+  if (!Number.isNaN(limiteComoNumero) && limiteComoNumero > 0) {
+    limite = limiteComoNumero;
+  }
+ 
+  models.postulaciones
+    .findAndCountAll({
+      limit: limite,
+      offset: pagina * limite,
+      include: [
+        {
+          as: "Postulante",
+          model: models.postulantes,
+          attributes: ["id", "nombre", "apellido"],
+        },
+        {
+          as: "Oferta",
+          model: models.ofertas,
+          attributes: ["id", "fk_id_empresa", "titulo_oferta"],
+        },
+      ],
+      where: { fk_id_postulante: idPostulante },
+    })
+    .then((postulaciones) =>
+      res.send({
+        postulaciones,
+        totalPaginas: Math.ceil(postulaciones.count / limite),
+      })
+    )
+    .catch(() => res.sendStatus(500));
+};
+
+export const getPorIdEmpresa = async (req, res) => {
+
+  let paginaComoNumero = Number.parseInt(req.query.pagina);
+  let limiteComoNumero = Number.parseInt(req.query.limite);
+  let idEmpresa = req.query.id;
+
+  let pagina = 0;
+  if (!Number.isNaN(paginaComoNumero) && paginaComoNumero > 0) {
+    pagina = paginaComoNumero;
+  }
+
+  let limite = 30;
+  if (!Number.isNaN(limiteComoNumero) && limiteComoNumero > 0) {
+    limite = limiteComoNumero;
+  }
+ 
+  models.postulaciones
+    .findAndCountAll({
+      limit: limite,
+      offset: pagina * limite,
+      include: [
+        {
+          as: "Postulante",
+          model: models.postulantes,
+          attributes: ["id", "nombre", "apellido"],
+        },
+        {
+          as: "Oferta",
+          model: models.ofertas,
+          attributes: ["id", "fk_id_empresa", "titulo_oferta"],
+        },
+      ],
+      where: { fk_id_empresa: idEmpresa },
+    })
+    .then((postulaciones) =>
+      res.send({
+        postulaciones,
+        totalPaginas: Math.ceil(postulaciones.count / limite),
+      })
+    )
+    .catch(() => res.sendStatus(500));
+};
+  /*
   models.postulaciones
     .findAll({
     //Devolvemos los registros
@@ -23,7 +107,7 @@ export const getConFiltros = async (req, res) => {
       postulaciones
       
     })).catch(() => res.sendStatus(500));
-};
+};*/
 
 export const postPostulaciones = async (req, res) => {
 
