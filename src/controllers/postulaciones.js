@@ -45,11 +45,11 @@ export const getPorIdPostulante = async (req, res) => {
     .catch(() => res.sendStatus(500));
 };
 
-export const getPorIdEmpresa = async (req, res) => {
+export const getPorIdOferta = async (req, res) => {
 
   let paginaComoNumero = Number.parseInt(req.query.pagina);
   let limiteComoNumero = Number.parseInt(req.query.limite);
-  let idEmpresa = req.query.id;
+  let idOferta = req.query.id;
 
   let pagina = 0;
   if (!Number.isNaN(paginaComoNumero) && paginaComoNumero > 0) {
@@ -77,7 +77,7 @@ export const getPorIdEmpresa = async (req, res) => {
           attributes: ["id", "fk_id_empresa", "titulo_oferta"],
         },
       ],
-      where: { fk_id_empresa: idEmpresa },
+      where: { fk_id_oferta: idOferta },
     })
     .then((postulaciones) =>
       res.send({
@@ -87,7 +87,8 @@ export const getPorIdEmpresa = async (req, res) => {
     )
     .catch(() => res.sendStatus(500));
 };
-  /*
+
+export const getConFiltros = async (req, res) => {
   models.postulaciones
     .findAll({
     //Devolvemos los registros
@@ -107,11 +108,9 @@ export const getPorIdEmpresa = async (req, res) => {
       postulaciones
       
     })).catch(() => res.sendStatus(500));
-};*/
+};
 
 export const postPostulaciones = async (req, res) => {
-
-
   models.postulaciones
     .create({ 
       fk_id_postulante: req.body.postulante,

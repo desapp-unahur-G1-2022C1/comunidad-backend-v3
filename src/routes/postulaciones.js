@@ -5,7 +5,7 @@ import {
   getPorId,
   deletePostulacion,
   updatePostulaciones,
-  getPorIdEmpresa,
+  getPorIdOferta,
   getPorIdPostulante,
 
 } from '../controllers/postulaciones';
@@ -19,7 +19,5 @@ router.post('/', withErrorHandling(postPostulaciones));
 router.get('/:id', withErrorHandling(getPorId));
 router.delete('/:id', withErrorHandling(deletePostulacion));
 router.put('/:id', withErrorHandling(updatePostulaciones));
-router.get('/empresa/:id', withErrorHandling(getPorIdEmpresa));
-router.get('/postulante/:id', withErrorHandling(getPorIdPostulante));
 
 export default router;
