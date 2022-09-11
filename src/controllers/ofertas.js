@@ -8,6 +8,7 @@ export const getConFiltros = async (req, res) => {
   let limiteComoNumero = Number.parseInt(req.query.limite);
   let ordenarPor = req.query.ordenar;
   let buscarTitulo = req.query.buscarTitulo;
+  let idEstado = req.query.idEstado;
 
   let pagina = 0;
   if (!Number.isNaN(paginaComoNumero) && paginaComoNumero > 0) {
@@ -27,6 +28,10 @@ export const getConFiltros = async (req, res) => {
   } else {
     buscarTitulo = buscarTitulo.replace(/\s/g, "%");
   }
+
+  if (typeof idEstado === "undefined") {
+    idEstado = 1;
+ }
 
   models.ofertas
     .findAndCountAll({
@@ -69,6 +74,9 @@ export const getConFiltros = async (req, res) => {
           {
             titulo_oferta: {
               [Op.iLike]: `%${buscarTitulo}%`,
+            },
+            fk_id_estado: {
+              [Op.eq]: idEstado
             },
           },
         ],

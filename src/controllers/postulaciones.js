@@ -31,7 +31,12 @@ export const getPorIdPostulante = async (req, res) => {
         {
           as: "Oferta",
           model: models.ofertas,
-          attributes: ["id", "fk_id_empresa", "titulo_oferta"],
+          attributes: ["id", "titulo_oferta"],
+        },        
+        {
+          as: "Empresa",
+          model: models.empresas,
+          attributes: ["id", "nombre_empresa"],
         },
       ],
       where: { fk_id_postulante: idPostulante },
@@ -74,7 +79,12 @@ export const getPorIdOferta = async (req, res) => {
         {
           as: "Oferta",
           model: models.ofertas,
-          attributes: ["id", "fk_id_empresa", "titulo_oferta"],
+          attributes: ["id", "titulo_oferta"],
+        },        
+        {
+          as: "Empresa",
+          model: models.empresas,
+          attributes: ["id", "nombre_empresa"],
         },
       ],
       where: { fk_id_oferta: idOferta },
@@ -101,7 +111,12 @@ export const getConFiltros = async (req, res) => {
       {
         as: "Oferta",
         model: models.ofertas,
-        attributes: ["id", "fk_id_empresa", "titulo_oferta"],
+        attributes: ["id", "titulo_oferta"],
+      },        
+      {
+        as: "Empresa",
+        model: models.empresas,
+        attributes: ["id", "nombre_empresa"],
       },
     ],
     }).then(postulaciones => res.send({
@@ -115,6 +130,7 @@ export const postPostulaciones = async (req, res) => {
     .create({ 
       fk_id_postulante: req.body.postulante,
       fk_id_oferta: req.body.oferta,
+      fk_id_empresa: req.body.empresa,
     })
     .then(postulaciones => res.status(201).send({ id: postulaciones.id }),
     )
@@ -141,7 +157,12 @@ export const postPostulaciones = async (req, res) => {
           {
             as: "Oferta",
             model: models.ofertas,
-            attributes: ["id", "fk_id_empresa", "titulo_oferta"],
+            attributes: ["id", "titulo_oferta"],
+          },        
+          {
+            as: "Empresa",
+            model: models.empresas,
+            attributes: ["id", "nombre_empresa"],
           },
         ],
         where: { id },
@@ -178,8 +199,9 @@ export const postPostulaciones = async (req, res) => {
           {
             fk_id_postulante: req.body.postulante,
             fk_id_oferta: req.body.oferta,
+            fk_id_empresa: req.body.empresa,
           },
-          { fields: ["fk_id_postulante", "fk_id_oferta"] }
+          { fields: ["fk_id_postulante", "fk_id_oferta", "fk_id_empresa"] }
         )
         .then(() => res.sendStatus(200))
         .catch((error) => {
