@@ -70,18 +70,68 @@ export const getConFiltros = async (req, res) => {
         },
       ],
       where: {
-        [Op.or]: [
+        [Op.and]: [
           {
             titulo_oferta: {
               [Op.iLike]: `%${buscarTitulo}%`,
             },
             fk_id_estado: {
-              [Op.eq]: idEstado
+              [Op.in]: [idEstado]
             },
           },
         ],
       },
       order: [ordenarPor],
+    })
+    .then((ofertas) =>
+      res.send({
+        ofertas,
+        totalPaginas: Math.ceil(ofertas.count / limite),
+      })
+    )
+    .catch(() => res.sendStatus(500));
+};
+
+export const getPeladas = async (req, res) => {
+  let pagina = 0;
+  let limite = 1000;
+
+  models.ofertas
+    .findAndCountAll({
+      limit: limite,
+      offset: pagina * limite,
+      include: [
+        {
+          as: "Empresa",
+          model: models.empresas,
+          attributes: ["id", "nombre_empresa"],
+        },
+        {
+          as: "Estudio",
+          model: models.estudios,
+          attributes: ["id", "nombre_estudio", "estado_estudio"],
+        },
+        {
+          as: "Carrera",
+          model: models.carreras,
+          attributes: ["id", "nombre_carrera"],
+        },
+        {
+          as: "Jornada",
+          model: models.jornadas,
+          attributes: ["id", "nombre_jornada"],
+        },
+        {
+          as: "Contrato",
+          model: models.contratos,
+          attributes: ["id", "nombre_contrato"],
+        },
+        {
+          as: "Estado",
+          model: models.estado_ofertas,
+          attributes: ["id", "nombre_estado"],
+        },
+      ]
     })
     .then((ofertas) =>
       res.send({
@@ -249,7 +299,7 @@ export const updateOfertas = async (req, res) => {
           fk_id_contrato: req.body.idContrato,
           fk_id_estudio: req.body.idEstudio,
           fk_id_carrera: req.body.idCarrera,
-          fk_id_estado: req.body.estado,
+          fk_id_estado: req.body.idEstado,
           fecha_vigencia: req.body.fechaVigencia,
           titulo_oferta: req.body.tituloOferta,
           descripcion: req.body.descripcion,

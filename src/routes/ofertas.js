@@ -5,7 +5,8 @@ import {
   getOfertasPorIdEmpresa,
   postOfertas,
   deleteOferta,
-  updateOfertas
+  updateOfertas,
+  getPeladas
 } from '../controllers/ofertas';
 import { withErrorHandling } from './utils';
 import { validateToken } from '../middlewares/validador';
@@ -13,6 +14,7 @@ import { validateToken } from '../middlewares/validador';
 const router = express.Router();
 
 router.get('/', withErrorHandling(getConFiltros));
+router.get('/all/', withErrorHandling(getPeladas));
 router.get('/idOferta/:id', withErrorHandling(getPorId));
 router.get('/cuit/:id', withErrorHandling(getOfertasPorIdEmpresa));
 router.post('/',withErrorHandling(postOfertas));

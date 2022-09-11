@@ -8,6 +8,7 @@ export const getConFiltros = async (req, res) => {
   let limiteComoNumero = Number.parseInt(req.query.limite);
   let ordenarPor = req.query.ordenar;
   let nombreEmpresa = req.query.nombreEmpresa;
+  let idEstado = req.query.idEstado;
 
   let pagina = 0;
   if (!Number.isNaN(paginaComoNumero) && paginaComoNumero > 0) {
@@ -27,6 +28,10 @@ export const getConFiltros = async (req, res) => {
   } else {
     nombreEmpresa = req.query.nombreEmpresa.replace(/\s/g, "%");
   }
+
+  if (typeof idEstado === "undefined") {
+    idEstado = "?";
+ }
 
   models.empresas
     .findAndCountAll({
@@ -50,15 +55,53 @@ export const getConFiltros = async (req, res) => {
         },
       ],
       where: {
-        [Op.or]: [
+        [Op.and]: [
           {
             nombre_empresa: {
               [Op.iLike]: `%${nombreEmpresa}%`,
+            },
+            fk_id_estado: {
+              [Op.eq]: idEstado
             },
           },
         ],
       },
       order: [ordenarPor],
+    })
+    .then((empresas) =>
+      res.send({
+        empresas,
+        totalPaginas: Math.ceil(empresas.count / limite),
+      })
+    )
+    .catch(() => res.sendStatus(500));
+};
+
+export const getPeladas = async (req, res) => {
+  let pagina = 0;
+  let limite = 1000;
+
+  models.empresas
+    .findAndCountAll({
+      limit: limite,
+      offset: pagina * limite,
+      include: [
+        {
+          as: "Usuario",
+          model: models.usuarios,
+          attributes: ["id", "usuario"],
+        },
+        {
+          as: "Rubro",
+          model: models.rubros,
+          attributes: ["id", "nombre_rubro"],
+        },
+        {
+          as: "Estado",
+          model: models.estado_empresas,
+          attributes: ["id", "nombre_estado"],
+        },
+      ],
     })
     .then((empresas) =>
       res.send({
@@ -156,7 +199,7 @@ export const postEmpresa = async (req, res) => {
       id:  req.body.cuit,
       fk_id_usuario: req.body.idUsuario,     
       fk_id_rubro: req.body.idRubro,          
-      fk_id_estado: req.body.idEstado,         
+      fk_id_estado: 2,         
       nombre_empresa: req.body.nombreEmpresa,       
       descripcion: req.body.descripcion,          
       pais: req.body.pais,                

@@ -5,7 +5,8 @@ import {
   getPorIdUsuario,
   deleteEmpresa,
   postEmpresa,
-  updateEmpresa
+  updateEmpresa,
+  getPeladas
 
 } from '../controllers/empresas';
 import { withErrorHandling } from './utils';
@@ -14,6 +15,7 @@ import { validateToken } from '../middlewares/validador';
 const router = express.Router();
 
 router.get('/', withErrorHandling(getConFiltros));
+router.get('/all/', withErrorHandling(getPeladas));
 router.get('/cuit/:id', withErrorHandling(getPorId));
 router.get('/idUsuario/:id', withErrorHandling(getPorIdUsuario));
 router.delete('/cuit/:id', withErrorHandling(deleteEmpresa));
