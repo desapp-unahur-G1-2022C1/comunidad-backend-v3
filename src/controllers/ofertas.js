@@ -76,7 +76,7 @@ export const getConFiltros = async (req, res) => {
               [Op.iLike]: `%${buscarTitulo}%`,
             },
             fk_id_estado: {
-              [Op.in]: [idEstado]
+              [Op.eq]: [idEstado]
             },
           },
         ],
