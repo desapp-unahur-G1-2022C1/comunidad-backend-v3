@@ -30,7 +30,7 @@ export const getConFiltros = async (req, res) => {
   }
 
   if (typeof idEstado === "undefined") {
-    idEstado = "?";
+    idEstado = 1;
  }
 
   models.empresas
