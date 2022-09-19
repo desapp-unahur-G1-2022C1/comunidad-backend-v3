@@ -218,6 +218,8 @@ export const postEmpresa = async (req, res) => {
     })
     .then(
       (empresas) => res.status(201).send({ id: empresas.id }),
+        //aca modificamos el perfil del usuario para pasarlo al grupo empresa
+        changeGroup(req.body.idUsuario)
     )
     .catch((error) => {
       if (error == "SequelizeUniqueConstraintError: Validation error") {
@@ -254,9 +256,7 @@ export const updateEmpresa = async (req, res) => {
         },
         { fields: ["fk_id_usuario", "fk_id_rubro", "fk_id_estado","nombre_empresa","descripcion","pais","provincia","descripcion","ciudad","calle","nro","piso","depto","cp","telefono","web","nombre_representante","email_representante"] }
       )
-      .then(() => res.sendStatus(200),
-        //aca modificamos el perfil del usuario para pasarlo al grupo empresa
-        changeGroup(req.body.idUsuario)
+      .then(() => res.sendStatus(200)
       )
       .catch((error) => {
         if (error == "SequelizeUniqueConstraintError: Validation error") {
