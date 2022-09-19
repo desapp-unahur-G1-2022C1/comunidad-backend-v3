@@ -217,10 +217,8 @@ export const postEmpresa = async (req, res) => {
       logo: "logo.jpg" 
     })
     .then(
-      (empresas) => res.status(201).send({ id: empresas.id }),
-        //aca modificamos el perfil del usuario para pasarlo al grupo empresa
-        changeGroup(req.body.idUsuario)
-    )
+      (empresas) => res.status(201).send({ id: empresas.id }))
+
     .catch((error) => {
       if (error == "SequelizeUniqueConstraintError: Validation error") {
         res.status(401).send("Bad request: Algun tipo de error de validacion de campos");
@@ -277,10 +275,32 @@ export const updateEmpresa = async (req, res) => {
   });
 };
 
+//Con esto cambiamos el estado de una empresa desde administrador.
+export const patchEmpresa = async (req, res) => {
+  const onSuccess = (empresas) =>
+  empresas
+      .update(
+        {          
+          fk_id_estado: 1,
+        },
+        { fields: ["fk_id_estado"] }
+      ).then(() => res.sendStatus(200),
+      changeGroup(empresas.fk_id_usuario),
+      console.log(empresas.fk_id_usuario)
+      ).catch((error) => {res.status(400)});
+
+      findEmpresas(req.params.id, {
+    onSuccess,
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500),
+  });
+};
+
 //Con esto cambiamos el grupo del usuario para que sea empresa.
 const changeGroup = (id_usuario) => {
   models.usuarios.update(
-    { fk_id_grupo: 2 },
+    { fk_id_grupo: 2,
+      estado: 't' },
     {
       where: {
         id: id_usuario,
@@ -288,3 +308,4 @@ const changeGroup = (id_usuario) => {
     }
   );
 };
+
