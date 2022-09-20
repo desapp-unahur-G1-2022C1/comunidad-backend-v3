@@ -10,6 +10,8 @@ import contratos from './contratos';
 import estudios from './estudios';
 import carreras from './carreras';
 import postulacionesId from './postulacionesId'
+import provincias from './provincias';
+import departamentos from './departamentos';
 
 const router = express.Router();
 
@@ -23,5 +25,7 @@ router.use('/contratos', contratos);
 router.use('/estudios', estudios);
 router.use('/carreras', carreras);
 router.use('/postulacionesId', postulacionesId);
+router.use('/provincias', provincias);
+router.use('/departamentos', departamentos);
 
 export default router;
