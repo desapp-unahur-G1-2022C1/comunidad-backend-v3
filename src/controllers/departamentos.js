@@ -1,17 +1,38 @@
 const models = require("../../database/models");
+const { Op } = require("sequelize");
 
-export const getAll = async (req, res) => {
+  //get de departamentos
+export const getConFiltros = async (req, res) => {
+  let nombreDepartamento = req.query.nombreDepartamento;
+  let idProvincia = req.query.idProvincia;
 
-    models.departamentos
-      .findAll({
-        include: [
+  if (typeof nombreDepartamento === "undefined") {
+    nombreDepartamento = "_";
+  } else {
+    nombreDepartamento = req.query.nombreDepartamento.replace(/\s/g, "%");
+  }
+
+  models.departamentos
+    .findAll({
+      attributes: ["id","nombre"],
+      where: {
+        [Op.and]: [
           {
-            as: "Provincia",
-            model: models.provincias,
-            attributes: ["id", "nombre"],
-          }],
-      }).then(departamentos => res.send({
+            nombre: {
+              [Op.iLike]: `%${nombreDepartamento}%`,
+            },
+            fk_id_provincia: {
+              [Op.eq]: [idProvincia]
+            },
+          },
+        ],
+      },
+      order: ["nombre"],
+    })
+    .then((departamentos) =>
+      res.send({
         departamentos
-        
-      })).catch(() => res.sendStatus(500));
-  };
+      })
+    )
+    .catch(() => res.sendStatus(500));
+};
