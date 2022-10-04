@@ -358,10 +358,10 @@ insert into departamentos values ('86056','Copo','86','2022-06-05 12:00:01','202
 insert into departamentos values ('46098','Vinchina','46','2022-06-05 12:00:01','2022-06-05 12:00:01');
 insert into departamentos values ('58056','Lacar','58','2022-06-05 12:00:01','2022-06-05 12:00:01');
 insert into departamentos values ('02091','Comuna 13','02','2022-06-05 12:00:01','2022-06-05 12:00:01');
-insert into departamentos values ('78021','Güer Aike','78','2022-06-05 12:00:01','2022-06-05 12:00:01');
+insert into departamentos values ('78021','Guer Aike','78','2022-06-05 12:00:01','2022-06-05 12:00:01');
 insert into departamentos values ('94008','Rio Grande','94','2022-06-05 12:00:01','2022-06-05 12:00:01');
 insert into departamentos values ('94015','Ushuaia','94','2022-06-05 12:00:01','2022-06-05 12:00:01');
-insert into departamentos values ('50077','Malargüe','50','2022-06-05 12:00:01','2022-06-05 12:00:01');
+insert into departamentos values ('50077','Malargue','50','2022-06-05 12:00:01','2022-06-05 12:00:01');
 insert into departamentos values ('10084','Poman','10','2022-06-05 12:00:01','2022-06-05 12:00:01');
 insert into departamentos values ('90035','Graneros','90','2022-06-05 12:00:01','2022-06-05 12:00:01');
 insert into departamentos values ('66140','Rosario de la Frontera','66','2022-06-05 12:00:01','2022-06-05 12:00:01');
