@@ -53,6 +53,16 @@ export const getConFiltros = async (req, res) => {
           model: models.estado_empresas,
           attributes: ["id", "nombre_estado"],
         },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
+        },
       ],
       where: {
         [Op.and]: [
@@ -101,6 +111,16 @@ export const getPeladas = async (req, res) => {
           model: models.estado_empresas,
           attributes: ["id", "nombre_estado"],
         },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
+        },
       ],
     })
     .then((empresas) =>
@@ -130,6 +150,16 @@ const findEmpresas= (id, { onSuccess, onNotFound, onError }) => {
           as: "Estado",
           model: models.estado_empresas,
           attributes: ["id", "nombre_estado"],
+        },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
         },
       ],
       where: { id },
@@ -164,6 +194,16 @@ const findEmpresasPorIdUsuario = (fk_id_usuario, { onSuccess, onNotFound, onErro
           as: "Estado",
           model: models.estado_empresas,
           attributes: ["id", "nombre_estado"],
+        },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
         },
       ],
       where: { fk_id_usuario },
@@ -203,8 +243,8 @@ export const postEmpresa = async (req, res) => {
       nombre_empresa: req.body.nombreEmpresa,       
       descripcion: req.body.descripcion,          
       pais: req.body.pais,                
-      provincia: req.body.provincia,            
-      ciudad: req.body.ciudad,               
+      fk_id_provincia: req.body.provincia,            
+      fk_id_ciudad: req.body.ciudad,               
       calle: req.body.calle,                
       nro: req.body.nro,                  
       piso: req.body.piso,                 
@@ -240,8 +280,8 @@ export const updateEmpresa = async (req, res) => {
           nombre_empresa: req.body.nombreEmpresa,       
           descripcion: req.body.descripcion,          
           pais: req.body.pais,                
-          provincia: req.body.provincia,            
-          ciudad: req.body.ciudad,               
+          fk_id_provincia: req.body.provincia,            
+          fk_id_ciudad: req.body.ciudad,               
           calle: req.body.calle,                
           nro: req.body.nro,                  
           piso: req.body.piso,                 
@@ -252,7 +292,7 @@ export const updateEmpresa = async (req, res) => {
           nombre_representante: req.body.nombreRepresentante, 
           email_representante: req.body.emailRepresentante, 
         },
-        { fields: ["fk_id_usuario", "fk_id_rubro", "fk_id_estado","nombre_empresa","descripcion","pais","provincia","descripcion","ciudad","calle","nro","piso","depto","cp","telefono","web","nombre_representante","email_representante"] }
+        { fields: ["fk_id_usuario", "fk_id_rubro", "fk_id_estado","nombre_empresa","descripcion","pais","fk_id_provincia","descripcion","fk_id_ciudad","calle","nro","piso","depto","cp","telefono","web","nombre_representante","email_representante"] }
       )
       .then(() => res.sendStatus(200)
       )

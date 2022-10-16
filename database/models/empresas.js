@@ -24,6 +24,16 @@ module.exports = (sequelize, DataTypes) => {
       ,{
         as : 'Estado',  // nombre de mi relacion
         foreignKey: 'fk_id_estado'     // campo con el que voy a igualar
+      }),
+      empresas.belongsTo(models.provincias// modelo al que pertenece
+      ,{
+        as : 'Provincia',  // nombre de mi relacion
+        foreignKey: 'fk_id_provincia'     // campo con el que voy a igualar
+      }),
+      empresas.belongsTo(models.ciudades// modelo al que pertenece
+      ,{
+        as : 'Ciudad',  // nombre de mi relacion
+        foreignKey: 'fk_id_ciudad'     // campo con el que voy a igualar
       })
     }
   }
@@ -34,8 +44,8 @@ module.exports = (sequelize, DataTypes) => {
     nombre_empresa: DataTypes.STRING,
     descripcion: DataTypes.STRING,
     pais: DataTypes.STRING,
-    provincia: DataTypes.STRING,
-    ciudad: DataTypes.STRING,
+    fk_id_provincia: DataTypes.INTEGER,
+    fk_id_ciudad: DataTypes.INTEGER,
     calle: DataTypes.STRING,
     nro: DataTypes.INTEGER,
     piso: DataTypes.INTEGER,

@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   getConFiltros
-} from '../controllers/departamentos';
+} from '../controllers/ciudades';
 import { withErrorHandling } from './utils';
 import { validateToken } from '../middlewares/validador';
 

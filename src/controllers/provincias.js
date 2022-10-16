@@ -3,7 +3,6 @@ const { Op } = require("sequelize");
 
 //get de provincias
 export const getConFiltros = async (req, res) => {
-
   let nombreProvincia = req.query.nombreProvincia;
 
 

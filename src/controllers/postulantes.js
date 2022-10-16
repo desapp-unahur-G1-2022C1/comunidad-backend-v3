@@ -64,6 +64,16 @@ export const getConFiltros = async (req, res) => {
           model: models.estado_postulantes,
           attributes: ["id", "nombre_estado"],
         },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
+        },
       ],
       where: {
         [Op.or]: [
@@ -122,6 +132,16 @@ const findPostulantesPorIdUsuario = (
           model: models.estado_postulantes,
           attributes: ["id", "nombre_estado"],
         },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
+        },
       ],
 
       where: { fk_id_usuario },
@@ -172,6 +192,16 @@ const findPostulantesPorDNI = (
           model: models.estado_postulantes,
           attributes: ["id", "nombre_estado"],
         },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
+        },
       ],
 
       where: { id },
@@ -204,8 +234,8 @@ export const postPostulante = async (req, res) => {
       nacionalidad: req.body.nacionalidad,
       fecha_nac: req.body.fecha_nac,
       pais: req.body.pais,
-      provincia: req.body.provincia,
-      ciudad: req.body.ciudad,
+      fk_id_provincia: req.body.provincia,
+      fk_id_ciudad: req.body.ciudad,
       calle: req.body.calle,
       nro: req.body.nro,
       piso: req.body.piso,
@@ -273,8 +303,8 @@ export const updatePostulante = async (req, res) => {
           nacionalidad: req.body.nacionalidad,
           fecha_nac: req.body.fecha_nac,
           pais: req.body.pais,
-          provincia: req.body.provincia,
-          ciudad: req.body.ciudad,
+          fk_id_provincia: req.body.provincia,
+          fk_id_ciudad: req.body.ciudad,
           calle: req.body.calle,
           nro: req.body.nro,
           piso: req.body.piso,
@@ -285,7 +315,7 @@ export const updatePostulante = async (req, res) => {
           alumno_unahur: req.body.alumnoUnahur,
           presentacion: req.body.presentacion,
         },
-          { fields: ["fk_id_tipo_documento", "fk_id_usuario","fk_id_estudios","fk_id_carrera","fk_id_estado","nombre","apellido","nacionalidad","fecha_nac","pais","provincia","ciudad","calle","nro","piso","depto","cp","telefono","cant_materias","alumno_unahur","presentacion"] }
+          { fields: ["fk_id_tipo_documento", "fk_id_usuario","fk_id_estudios","fk_id_carrera","fk_id_estado","nombre","apellido","nacionalidad","fecha_nac","pais","fk_id_provincia","fk_id_ciudad","calle","nro","piso","depto","cp","telefono","cant_materias","alumno_unahur","presentacion"] }
       )
       .then(() => res.sendStatus(200))
       .catch((error) => {
