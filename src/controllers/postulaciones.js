@@ -1,5 +1,6 @@
 const models = require("../../database/models");
 const { Op } = require("sequelize");
+const Sequelize = require("sequelize");
 
 
 export const getPorIdPostulante = async (req, res) => {
@@ -222,3 +223,17 @@ export const postPostulaciones = async (req, res) => {
       onError: () => res.sendStatus(500),
     });
   };
+
+
+  export const getCountPostulacionesPorOferta = async (req, res) => {
+    consultapelada = await Op.query("select fk_id_oferta as id_oferta, count(*) as cantidad_postulantes from postulaciones group by fk_id_oferta;", {
+      model: models.postulanciones})
+      .then((consultapelada) =>
+        res.send({
+          consultapelada
+        })
+      )
+      .catch(() => res.sendStatus(500));
+  };
+
+

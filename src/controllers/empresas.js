@@ -53,6 +53,16 @@ export const getConFiltros = async (req, res) => {
           model: models.estado_empresas,
           attributes: ["id", "nombre_estado"],
         },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
+        },
       ],
       where: {
         [Op.and]: [
@@ -101,6 +111,16 @@ export const getPeladas = async (req, res) => {
           model: models.estado_empresas,
           attributes: ["id", "nombre_estado"],
         },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
+        },
       ],
     })
     .then((empresas) =>
@@ -130,6 +150,16 @@ const findEmpresas= (id, { onSuccess, onNotFound, onError }) => {
           as: "Estado",
           model: models.estado_empresas,
           attributes: ["id", "nombre_estado"],
+        },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
         },
       ],
       where: { id },
@@ -164,6 +194,16 @@ const findEmpresasPorIdUsuario = (fk_id_usuario, { onSuccess, onNotFound, onErro
           as: "Estado",
           model: models.estado_empresas,
           attributes: ["id", "nombre_estado"],
+        },
+        {
+          as: "Provincia",
+          model: models.provincias,
+          attributes: ["id", "nombre"],
+        },
+        {
+          as: "Ciudad",
+          model: models.ciudades,
+          attributes: ["id", "nombre", "fk_id_provincia"],
         },
       ],
       where: { fk_id_usuario },
@@ -203,8 +243,8 @@ export const postEmpresa = async (req, res) => {
       nombre_empresa: req.body.nombreEmpresa,       
       descripcion: req.body.descripcion,          
       pais: req.body.pais,                
-      provincia: req.body.provincia,            
-      ciudad: req.body.ciudad,               
+      fk_id_provincia: req.body.provincia,            
+      fk_id_ciudad: req.body.ciudad,               
       calle: req.body.calle,                
       nro: req.body.nro,                  
       piso: req.body.piso,                 
@@ -217,10 +257,8 @@ export const postEmpresa = async (req, res) => {
       logo: "logo.jpg" 
     })
     .then(
-      (empresas) => res.status(201).send({ id: empresas.id }),
-        //aca modificamos el perfil del usuario para pasarlo al grupo empresa
-        changeGroup(req.body.idUsuario)
-    )
+      (empresas) => res.status(201).send({ id: empresas.id }))
+
     .catch((error) => {
       if (error == "SequelizeUniqueConstraintError: Validation error") {
         res.status(401).send("Bad request: Algun tipo de error de validacion de campos");
@@ -242,8 +280,8 @@ export const updateEmpresa = async (req, res) => {
           nombre_empresa: req.body.nombreEmpresa,       
           descripcion: req.body.descripcion,          
           pais: req.body.pais,                
-          provincia: req.body.provincia,            
-          ciudad: req.body.ciudad,               
+          fk_id_provincia: req.body.provincia,            
+          fk_id_ciudad: req.body.ciudad,               
           calle: req.body.calle,                
           nro: req.body.nro,                  
           piso: req.body.piso,                 
@@ -254,7 +292,7 @@ export const updateEmpresa = async (req, res) => {
           nombre_representante: req.body.nombreRepresentante, 
           email_representante: req.body.emailRepresentante, 
         },
-        { fields: ["fk_id_usuario", "fk_id_rubro", "fk_id_estado","nombre_empresa","descripcion","pais","provincia","descripcion","ciudad","calle","nro","piso","depto","cp","telefono","web","nombre_representante","email_representante"] }
+        { fields: ["fk_id_usuario", "fk_id_rubro", "fk_id_estado","nombre_empresa","descripcion","pais","fk_id_provincia","descripcion","fk_id_ciudad","calle","nro","piso","depto","cp","telefono","web","nombre_representante","email_representante"] }
       )
       .then(() => res.sendStatus(200)
       )
@@ -277,10 +315,32 @@ export const updateEmpresa = async (req, res) => {
   });
 };
 
+//Con esto cambiamos el estado de una empresa desde administrador.
+export const patchEmpresa = async (req, res) => {
+  const onSuccess = (empresas) =>
+  empresas
+      .update(
+        {          
+          fk_id_estado: 1,
+        },
+        { fields: ["fk_id_estado"] }
+      ).then(() => res.sendStatus(200),
+      changeGroup(empresas.fk_id_usuario),
+      console.log(empresas.fk_id_usuario)
+      ).catch((error) => {res.status(400)});
+
+      findEmpresas(req.params.id, {
+    onSuccess,
+    onNotFound: () => res.sendStatus(404),
+    onError: () => res.sendStatus(500),
+  });
+};
+
 //Con esto cambiamos el grupo del usuario para que sea empresa.
 const changeGroup = (id_usuario) => {
   models.usuarios.update(
-    { fk_id_grupo: 2 },
+    { fk_id_grupo: 2,
+      estado: 't' },
     {
       where: {
         id: id_usuario,
@@ -288,3 +348,4 @@ const changeGroup = (id_usuario) => {
     }
   );
 };
+

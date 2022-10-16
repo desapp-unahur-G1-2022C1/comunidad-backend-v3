@@ -1,0 +1,25 @@
+
+  	insert into provincias values ('54','Misiones','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('74','San Luis','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('70','San Juan','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('30','Entre Ríos','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('78','Santa Cruz','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('62','Río Negro','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('26','Chubut','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('14','Córdoba','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('50','Mendoza','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('46','La Rioja','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('10','Catamarca','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('42','La Pampa','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('86','Santiago del Estero','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('18','Corrientes','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('82','Santa Fe','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('90','Tucumán','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('58','Neuquén','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('66','Salta','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('22','Chaco','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('34','Formosa','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('38','Jujuy','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('02','Ciudad Autónoma de Buenos Aires','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('06','Buenos Aires','2022-06-05 12:00:00','2022-06-05 12:00:00');
+    insert into provincias values ('94','Tierra del Fuego','2022-06-05 12:00:00','2022-06-05 12:00:00'); 
