@@ -1,7 +1,7 @@
 const { Storage } = require("@google-cloud/storage");
 
-let projectId = "red-seeker-365622"; // Get this from Google Cloud
-let keyFilename = "red-seeker-365622-b037b7220de8.json"; // Get this from Google Cloud -> Credentials -> Service Accounts
+let projectId = "red-seeker-365622"; // Google Cloud
+let keyFilename = "red-seeker-365622-b037b7220de8.json"; // Google Cloud -> Credentials -> Service Accounts
 const storage = new Storage({
   projectId,
   keyFilename,
