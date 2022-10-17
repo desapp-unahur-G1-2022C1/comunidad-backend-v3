@@ -39,6 +39,8 @@ var _idiomasPostulantes = _interopRequireDefault(require("./idiomasPostulantes")
 
 var _idiomasOfertas = _interopRequireDefault(require("./idiomasOfertas"));
 
+var _uploadFiles = _interopRequireDefault(require("./uploadFiles"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const router = _express.default.Router();
@@ -59,6 +61,7 @@ router.use('/idiomas', _idiomas.default);
 router.use('/nivelesIdiomas', _nivelesIdiomas.default);
 router.use('/idiomasPostulantes', _idiomasPostulantes.default);
 router.use('/idiomasOfertas', _idiomasOfertas.default);
+router.use('/uploadFiles', _uploadFiles.default);
 var _default = router;
 exports.default = _default;
 //# sourceMappingURL=index.js.map
