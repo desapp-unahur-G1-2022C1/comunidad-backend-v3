@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "red-seeker-365622",
+  "private_key_id": "b037b7220de8ea739b5ced7902cba624cb56f07a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCkcSeY2HTENcoS\n5+Kun78Ku5yQjb9gZ5LInoCWW+GN5uyrGae3kqQn+wZniRNQ9VThYPDJJpHX8ipf\nt3B/wKxh+ZpNkxKKt6w7LQG4kPolHEwsqbH2jxE80SU/LX2OJJ+NzAypjvFBFAIG\nVDbGtJvysC1w7obN0h0dGk884DDQUrIk5nrS6/2dtR6T7bETVoT/evNLDy7Mnhhx\nCoSPLxOQlV3mYkPKM5d6MFVzrsJRGSZr7ulULbKI/F9pXF1TxvZuhO6JzId2JGoG\nM4N68zwnio7Gw5rLDGeQHhtCn//8mK6Vr+NYe/2gCCQRwX2WPqxXgO2YRySZxJOf\nT4N7oNw5AgMBAAECggEAEl9jI3BhwW9aE7ktSkHmZCJYiI0RyglgbMJKzyHWZlab\n8DT2WGwNo7rn+QbnbdbvRBwi4vKIfnZb1iRmcRublvm+i/bH7lA9scHiTJcEH8PU\n3fOawteyvxcGAJRKUCiW3A6lhodGPLVp0X+0vAg/WULmXNUFojbc0lzXaA+LXKcG\ns2H9EYlz0jGvD9lvYIp7rpFsCmqbLKmQqzTOOwKkRO476aambWG+oHg1LrxrfTbu\nLMZkY8OmHHv4yLjXW8pGIxkmKRg+pISSHlezgUt/2P0ydAz7mcubhdh3lg9uCWim\nlwrObZilKfiA9UaiyVkRAujfTEgdGbY4VJX00l5+gQKBgQDb8aFZ72ocQUuQ5YHq\nKV8cTmXO508axx2we0qOJg0tA9kmjg8GdqnLqmaTWDl1Uhx2g/WnkJltDfJLOiH2\nNKXcPOmbxdaNzxhsBdBC+X598swCBz9KKBLc9HSUK2q3LfPn9fG7fPCQlp035fI0\ntc1KTI4evOprkx4cnjAPqp7WwQKBgQC/ZkgX2+BMyzuUCxH6ZW4+2WhUi+8U0zEV\nWBt+vg82X8GvOYn6fJqRnmkBJ4H77GGihG0LiFW4WiViK0XnCLJT9s7oyY7dOmCx\nAncrCgjfKHZfdrg4K8hCnUVURcSkdPE4XasaPA3ye4BW1sUv7pTW3DMfOp57RZaH\njFTMfqcbeQKBgQCZPiurm9IUybG6zQ3NdvHbqQvqMuO8xor7EYwKqpx3hrzfzg7N\n9BOt4ZYCh2/RPFq0gJDCJU+g2hy9KU3MWzZM0uv5KsiomWhsq0hFwcvOOULHDwGb\ny3wJExG+wtlhs9TDA2tftFdwhmAYOFCfRSQ55kkHRZ0XQrOyQM0/vSNagQKBgEG7\n8w6eqU42jmOt2aLRqydSq4498QKJ9dWKyQaiZ78Y7AAuFsE8gil46j9HPlEzQeT6\n7iiDzkzeSPCKRBuw1O4ZWb6BWtuH7SVd32ecrqdV0jG/KE3CW6jlMqZav8prj1z4\nboc4EOIyoEUyxc5MdjnErpoPG9bic2xiOc1xwhqhAoGBAJHkHYO7Lg24ijI/4itE\n64hQr4z5as5KnuBgat/hw4aHI8Z7GS/NKSOpUW5Anb7qM4Q8crSGjL/s2JK3zvoE\nGyDYOdiAUGlPYzBJNwnk0Cn/HT0HAiAavgbOh+GnSTsRxAuIskScgb6D5DYW4+I1\nr5XOmCKwUUsJEFe70F+jEjx+\n-----END PRIVATE KEY-----\n",
+  "client_email": "apiuser@red-seeker-365622.iam.gserviceaccount.com",
+  "client_id": "107126594086080513363",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/apiuser%40red-seeker-365622.iam.gserviceaccount.com"
+}
