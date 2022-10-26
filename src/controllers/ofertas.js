@@ -41,7 +41,7 @@ export const getConFiltros = async (req, res) => {
         {
           as: "Empresa",
           model: models.empresas,
-          attributes: ["id", "nombre_empresa"],
+          attributes: ["id", "nombre_empresa", "descripcion"],
         },
         {
           as: "Estudio",
@@ -104,7 +104,7 @@ export const getPeladas = async (req, res) => {
         {
           as: "Empresa",
           model: models.empresas,
-          attributes: ["id", "nombre_empresa"],
+          attributes: ["id", "nombre_empresa", "descripcion"],
         },
         {
           as: "Estudio",
@@ -149,7 +149,7 @@ const findOferta = (id, { onSuccess, onNotFound, onError }) => {
         {
           as: "Empresa",
           model: models.empresas,
-          attributes: ["id", "nombre_empresa"],
+          attributes: ["id", "nombre_empresa", "descripcion"],
         },
         {
           as: "Estudio",
@@ -201,7 +201,7 @@ const findOfertaPorIdEmpresa = (
         {
           as: "Empresa",
           model: models.empresas,
-          attributes: ["id", "nombre_empresa"],
+          attributes: ["id", "nombre_empresa", "descripcion"],
         },
         {
           as: "Estudio",

@@ -55,3 +55,7 @@ npm i multer
 ```shell
 npm i @google-cloud/storage
 ```
+### Para instalar UUID
+```shell
+npm i uuid
+```
