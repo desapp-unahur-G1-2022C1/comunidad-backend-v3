@@ -245,8 +245,8 @@ export const postPostulante = async (req, res) => {
       cant_materias: req.body.cantMaterias,
       alumno_unahur: req.body.alumnoUnahur,
       presentacion: req.body.presentacion,
-      cv: "path del cv",
-      foto: "path de la foto",
+      cv: "",
+      foto: "",
     })
     .then(
       (postulantes) => res.status(201).send({ id: postulantes.id }),

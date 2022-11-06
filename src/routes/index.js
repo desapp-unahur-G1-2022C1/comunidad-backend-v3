@@ -16,7 +16,7 @@ import idiomas from './idiomas';
 import nivelesIdiomas from './nivelesIdiomas';
 import idiomasPostulantes from './idiomasPostulantes';
 import idiomasOfertas from './idiomasOfertas';
-import uploadFiles  from './uploadFiles';
+import files  from './files';
 
 const router = express.Router();
 
@@ -36,6 +36,6 @@ router.use('/idiomas', idiomas);
 router.use('/nivelesIdiomas', nivelesIdiomas);
 router.use('/idiomasPostulantes', idiomasPostulantes);
 router.use('/idiomasOfertas', idiomasOfertas);
-router.use('/uploadFiles', uploadFiles);
+router.use('/files', files);
 
 export default router;
