@@ -103,8 +103,10 @@ async function fetchFileFromGoogleStorage(fileName) {
 };
 
 export const getFiles = async (req, res) => {
-  let fileName = req.body.fileName;
-  let type = req.body.type;
+  let fileName = req.headers.file;
+  let type = req.headers.type;
+  console.log("este es el file", fileName);
+  console.log("este es el type", type);
   const downloadedImageFile = await fetchFileFromGoogleStorage(fileName);
   res.status(200);
   res.type(type);
