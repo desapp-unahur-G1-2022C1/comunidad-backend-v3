@@ -132,6 +132,7 @@ export const postPostulaciones = async (req, res) => {
       fk_id_postulante: req.body.postulante,
       fk_id_oferta: req.body.oferta,
       fk_id_empresa: req.body.empresa,
+      contactado: "f",
     })
     .then(postulaciones => res.status(201).send({ id: postulaciones.id }),
     )
@@ -201,8 +202,9 @@ export const postPostulaciones = async (req, res) => {
             fk_id_postulante: req.body.postulante,
             fk_id_oferta: req.body.oferta,
             fk_id_empresa: req.body.empresa,
+            contactado: req.body.contactado,
           },
-          { fields: ["fk_id_postulante", "fk_id_oferta", "fk_id_empresa"] }
+          { fields: ["fk_id_postulante", "fk_id_oferta", "fk_id_empresa", "contactado"] }
         )
         .then(() => res.sendStatus(200))
         .catch((error) => {
