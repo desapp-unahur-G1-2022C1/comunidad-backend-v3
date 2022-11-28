@@ -75,7 +75,7 @@ export const getPorIdOferta = async (req, res) => {
         {
           as: "Postulante",
           model: models.postulantes,
-          attributes: ["id", "nombre", "apellido","fk_id_usuario","telefono"],
+          attributes: ["id", "nombre", "apellido","fk_id_usuario","telefono","cv","foto"],
         },
         {
           as: "Oferta",
