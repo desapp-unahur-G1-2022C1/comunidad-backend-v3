@@ -81,7 +81,7 @@ export const getConFiltros = async (req, res) => {
           },
         ],
       },
-      order: [ordenarPor],
+      order: [ordenarPor, 'DESC'],
     })
     .then((ofertas) =>
       res.send({
