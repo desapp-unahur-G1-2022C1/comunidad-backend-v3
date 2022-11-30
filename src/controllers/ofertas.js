@@ -191,12 +191,31 @@ export const getPorId = async (req, res) => {
   });
 };
 
-const findOfertaPorIdEmpresa = (
-  fk_id_empresa,
-  { onSuccess, onNotFound, onError }
-) => {
+
+export const getOfertasPorIdEmpresa = async (req, res) => {
+  let buscarTitulo = req.query.buscarTitulo;
+  let pagina = req.query.pagina;
+  let limite = req.query.limite;
+  let fk_id_empresa = req.params.id;
+
+  if (typeof buscarTitulo === "undefined") {
+    buscarTitulo = "_";
+  } else {
+    buscarTitulo = buscarTitulo.replace(/\s/g, "%");
+  }
+
+  if (typeof pagina === "undefined") {
+    pagina = 0;
+  }
+
+  if (typeof limite === "undefined") {
+    limite = 30;
+  }
+
   models.ofertas
-    .findAll({
+    .findAndCountAll({
+      limit: limite,
+      offset: pagina * limite,
       include: [
         {
           as: "Empresa",
@@ -229,18 +248,23 @@ const findOfertaPorIdEmpresa = (
           attributes: ["id", "nombre_estado"],
         },
       ],
-      where: { fk_id_empresa },
+      where: { fk_id_empresa,
+        [Op.and]: [
+          {
+            titulo_oferta: {
+              [Op.iLike]: `%${buscarTitulo}%`,
+            },
+          },
+        ],
+      },
     })
-    .then((ofertas) => (ofertas ? onSuccess(ofertas) : onNotFound()))
-    .catch(() => onError());
-};
-
-export const getOfertasPorIdEmpresa = async (req, res) => {
-  findOfertaPorIdEmpresa(req.params.id, {
-    onSuccess: (ofertas) => res.send(ofertas),
-    onNotFound: () => res.sendStatus(404),
-    onError: () => res.sendStatus(500),
-  });
+    .then((ofertas) =>
+      res.send({
+        ofertas,
+        totalPaginas: Math.ceil(ofertas.count / limite),
+      })
+    )
+    .catch(() => res.sendStatus(500));
 };
 
 export const postOfertas = async (req, res) => {
