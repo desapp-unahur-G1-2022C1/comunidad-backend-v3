@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 
 
 let projectId = "red-seeker-365622"; // Google Cloud
-let keyFilename = "red-seeker-365622-b037b7220de8.json"; // Google Cloud -> Credentials -> Service Accounts
+let keyFilename = "./red-seeker-365622-b037b7220de8.json"; // Google Cloud -> Credentials -> Service Accounts
 const storage = new Storage({
   projectId,
   keyFilename,
