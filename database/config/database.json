@@ -7,12 +7,11 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
-    "password": "2oMNl9iEJqYsJ0c94Yt1",
-    "database": "railway",
-    "host": "containers-us-west-37.railway.app",
-    "dialect": "postgres",
-    "port": "7539"
+    "username": "joxygtvrswuddf",
+    "password": "5fbbba4cf1792ef2fdb9035911b2745f82cdcbbaa366c590b638b0a1e2f3a884",
+    "database": "d45ifk0atsago",
+    "host": "ec2-54-227-248-71.compute-1.amazonaws.com",
+    "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
