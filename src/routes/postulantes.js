@@ -12,11 +12,11 @@ import { validateToken } from '../middlewares/validador';
 
 const router = express.Router();
 
-router.get('/', withErrorHandling(getConFiltros));
-router.get('/idUsuario/:id', withErrorHandling(getPorIdUsuario));
-router.get('/dni/:id', withErrorHandling(getPorId));
+router.get('/',validateToken, withErrorHandling(getConFiltros));
+router.get('/idUsuario/:id',validateToken, withErrorHandling(getPorIdUsuario));
+router.get('/dni/:id',validateToken, withErrorHandling(getPorId));
 router.post('/', withErrorHandling(postPostulante));
-router.delete('/dni/:id', withErrorHandling(deletePostulante));
-router.put('/dni/:id', withErrorHandling(updatePostulante));
+router.delete('/dni/:id',validateToken, withErrorHandling(deletePostulante));
+router.put('/dni/:id',validateToken, withErrorHandling(updatePostulante));
 
 export default router;

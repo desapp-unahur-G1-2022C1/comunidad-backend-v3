@@ -15,13 +15,13 @@ import { validateToken } from '../middlewares/validador';
 
 const router = express.Router();
 
-router.get('/', withErrorHandling(getConFiltros));
-router.get('/all/', withErrorHandling(getPeladas));
-router.get('/cuit/:id', withErrorHandling(getPorId));
-router.get('/idUsuario/:id', withErrorHandling(getPorIdUsuario));
-router.delete('/cuit/:id', withErrorHandling(deleteEmpresa));
-router.post('/',withErrorHandling(postEmpresa));
-router.put('/cuit/:id',withErrorHandling(updateEmpresa));
-router.patch('/cuit/:id',withErrorHandling(patchEmpresa));
+router.get('/', validateToken, withErrorHandling(getConFiltros));
+router.get('/all/', validateToken, withErrorHandling(getPeladas));
+router.get('/cuit/:id', validateToken, withErrorHandling(getPorId));
+router.get('/idUsuario/:id', validateToken, withErrorHandling(getPorIdUsuario));
+router.delete('/cuit/:id', validateToken, withErrorHandling(deleteEmpresa));
+router.post('/', withErrorHandling(postEmpresa));
+router.put('/cuit/:id', validateToken, withErrorHandling(updateEmpresa));
+router.patch('/cuit/:id', validateToken, withErrorHandling(patchEmpresa));
 
 export default router;

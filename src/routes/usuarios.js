@@ -10,9 +10,9 @@ import { validateToken } from '../middlewares/validador';
 
 const router = express.Router();
 
-router.get('/', withErrorHandling(getAll));
+//router.get('/', withErrorHandling(getAll));
 router.post('/signin', withErrorHandling(signIn));
 router.post('/signup', withErrorHandling(signUp));
-router.delete('/:id', withErrorHandling(deleteUsuario));
+//router.delete('/:id', withErrorHandling(deleteUsuario));
 
 export default router;
