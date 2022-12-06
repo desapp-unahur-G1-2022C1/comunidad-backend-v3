@@ -13,10 +13,10 @@ import { validateToken } from '../middlewares/validador';
 
 const router = express.Router();
 
-router.get('/',validateToken, withErrorHandling(getConFiltros));
-router.get('/all/',validateToken, withErrorHandling(getPeladas));
-router.get('/idOferta/:id',validateToken, withErrorHandling(getPorId));
-router.get('/cuit/:id',validateToken, withErrorHandling(getOfertasPorIdEmpresa));
+router.get('/', withErrorHandling(getConFiltros));
+router.get('/all/', withErrorHandling(getPeladas));
+router.get('/idOferta/:id', withErrorHandling(getPorId));
+router.get('/cuit/:id', withErrorHandling(getOfertasPorIdEmpresa));
 router.post('/',validateToken, withErrorHandling(postOfertas));
 router.delete('/idOferta/:id',validateToken, withErrorHandling(deleteOferta));
 router.put('/idOferta/:id',validateToken, withErrorHandling(updateOfertas));
