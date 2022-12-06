@@ -14,9 +14,9 @@ import { validateToken } from '../middlewares/validador';
 
 const router = express.Router();
 
-router.get('/',validateToken, withErrorHandling(getConFiltros));
+router.get('/', withErrorHandling(getConFiltros));
 router.post('/',validateToken, withErrorHandling(postPostulaciones));
-router.get('/:id',validateToken, withErrorHandling(getPorId));
+router.get('/:id', withErrorHandling(getPorId));
 router.delete('/:id',validateToken, withErrorHandling(deletePostulacion));
 router.put('/:id',validateToken, withErrorHandling(updatePostulaciones));
 

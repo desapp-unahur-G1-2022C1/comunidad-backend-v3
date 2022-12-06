@@ -7,6 +7,6 @@ import { validateToken } from '../middlewares/validador';
 
 const router = express.Router();
 
-router.get('/', validateToken, withErrorHandling(getConFiltros));
+router.get('/', withErrorHandling(getConFiltros));
 
 export default router;
