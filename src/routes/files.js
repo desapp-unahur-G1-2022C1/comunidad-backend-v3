@@ -16,6 +16,6 @@ const router = express.Router();
 router.post('/logo', validateToken, multer.single("uploadLogo"), withErrorHandling(uploadLogo));
 router.post('/cv/', validateToken, multer.single("uploadCV"), withErrorHandling(uploadCV));
 router.post('/foto/',validateToken, multer.single("uploadFoto"), withErrorHandling(uploadFoto));
-router.get('/',validateToken, withErrorHandling(getFiles));
+router.get('/', withErrorHandling(getFiles));
 
 export default router;
