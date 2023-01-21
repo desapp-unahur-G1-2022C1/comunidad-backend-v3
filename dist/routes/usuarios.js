@@ -11,13 +11,16 @@ var _usuarios = require("../controllers/usuarios");
 
 var _utils = require("./utils");
 
+var _validador = require("../middlewares/validador");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const router = _express.default.Router();
 
-router.get('/', _usuarios.getAll);
-router.post('/signin', _usuarios.signIn);
-router.post('/signup', _usuarios.signUp);
+router.get('/', (0, _utils.withErrorHandling)(_usuarios.getAll));
+router.post('/signin', (0, _utils.withErrorHandling)(_usuarios.signIn));
+router.post('/signup', (0, _utils.withErrorHandling)(_usuarios.signUp));
+router.delete('/:id', (0, _utils.withErrorHandling)(_usuarios.deleteUsuario));
 var _default = router;
 exports.default = _default;
 //# sourceMappingURL=usuarios.js.map

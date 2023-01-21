@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     fk_id_postulante: DataTypes.INTEGER,
     fk_id_oferta: DataTypes.INTEGER,
     fk_id_empresa: DataTypes.BIGINT,
+    contactado: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'postulaciones',

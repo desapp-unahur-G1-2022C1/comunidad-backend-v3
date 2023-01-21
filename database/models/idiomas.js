@@ -14,8 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   idiomas.init({
-    nombre_idioma: DataTypes.STRING,
-    nivel_idioma: DataTypes.STRING
+    nombre_idioma: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'idiomas',

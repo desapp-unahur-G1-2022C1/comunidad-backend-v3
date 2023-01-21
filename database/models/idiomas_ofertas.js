@@ -11,11 +11,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      idiomas_ofertas.belongsTo(models.idiomas// modelo al que pertenece
+      ,{
+        as : 'Idioma',  // nombre de mi relacion
+        foreignKey: 'fk_id_idioma'     // campo con el que voy a igualar
+      }),
+      idiomas_ofertas.belongsTo(models.ofertas// modelo al que pertenece
+      ,{
+        as : 'Oferta',  // nombre de mi relacion
+        foreignKey: 'fk_id_oferta'     // campo con el que voy a igualar
+      }),
+      idiomas_ofertas.belongsTo(models.niveles_idiomas// modelo al que pertenece
+      ,{
+        as : 'Nivel',  // nombre de mi relacion
+        foreignKey: 'fk_id_nivel'     // campo con el que voy a igualar
+      })
     }
   }
   idiomas_ofertas.init({
     fk_id_idioma: DataTypes.INTEGER,
-    fk_id_oferta: DataTypes.INTEGER
+    fk_id_oferta: DataTypes.INTEGER,
+    fk_id_nivel: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'idiomas_ofertas',
