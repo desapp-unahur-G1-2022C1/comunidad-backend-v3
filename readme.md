@@ -1,61 +1,101 @@
-# Branch: desarrollo
+## Como levantar el proyecto de forma local
+---
+### 1. Clonar el repo.
 
+### 2. Instalamos los paquetes y dependencias.
 
-### Para instalar express (framework):
-```shell
-npm install express
 ```
-### Para instalar sequelize:
-```shell
-npm install sequelize --save
-npm install sequelize-cli --save-dev
+npm i
 ```
-### Paquetes del postgres:
-```shell
-npm install pg
-npm install pg-hstore
+
+### 3. Instalamos psql
+
+> Psql nos permite conectarnos a bases Postgres mediante la consola.
+
 ```
-### Para no tener que arrancar el node luego de un cambio:
-```shell
-npm i nodemon -D
+psql --version
 ```
-### Para cifrar la contraseña:
-```shell
-npm i bcrypt
+
+> Si ya tenemos una versión instalada no hace falta volver a hacerlo.
+
+#### MacOS:
+
 ```
-### Para usar un token de validacion:
-```shell
-npm i jsonwebtoken
+brew doctor
+brew update
+brew install libpq
+brew link --force libpq
 ```
-### Para poder meter la configuracion en .env.:
-```shell
-npm i dotenv
+
+#### Linux Debian like:
+
 ```
-### Para poder generar un codigo aleatorio:
-```shell
-npm i uuid
+sudo apt-get update
+sudo apt-get install postgresql-client
 ```
-### Para bajar Postgres usando docker (luego de instalar Docker):
-```shell
+
+### 4. Docker
+
+Instalamos Docker desde el siguiente link:
+
+[Docker Docs](https://docs.docker.com/engine/install/)
+
+Una vez instalado nos paramos en el directorio raíz del repo y ejecutamos:
+
+```
 docker-compose up -d
 ```
-### Para crear las tablas:
-```shell
-npx sequelize-cli db:migrate
+
+### 5. Creación de la base
+
+Nos conectamos a la base:
+
 ```
-### Para cargar algunos datos:
-```shell
-seeders_v4.sql
+psql -h 127.0.0.1 -U postgres
 ```
-### Para instalar multer
-```shell
-npm i multer
+
+> contraseña: admin1234
+
+Creamos la base:
+
 ```
-### Para instalar Google Cloud Storage
-```shell
-npm i @google-cloud/storage
+CREATE DATABASE desarrollo;
 ```
-### Para instalar UUID
-```shell
-npm i uuid
+Nos pasamos a la base:
+
 ```
+\c desarrollo;
+```
+
+Cargamos los datos:
+
+```
+\i dump_base.sql;
+```
+
+Salimos con:
+
+```
+\q;
+```
+
+> Ahora podemos conectarnos asi: psql -h 127.0.0.1 -U postgres -d desarrollo
+
+### 6. Environment
+
+Tenemos que crear una copia del archivo .env.example en .env.
+
+Ejecutamos el código:
+
+```
+./run_dev.sh
+```
+
+### 7. Pruebas en Insomnia
+
+Importamos el archivo API_COMUNIDAD_V3.json
+
+---
+### Extra: Algo que estaria bueno mejorar
+
+Cuando diseñamos la base por un tema de PKs, que luego corregimos, tuvimos que duplicar en Postulantes y Empresas los datos de contacto como dirección, localidad, teléfono, etc. Eso estaría bueno modificarlo. El cambio requiere crear tablas, FKs y adaptar los endpoints. Además de cambios en el front.

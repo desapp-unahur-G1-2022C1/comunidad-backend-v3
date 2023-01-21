@@ -1861,12 +1861,12 @@ COPY public.postulaciones (id, fk_id_postulante, fk_id_oferta, "createdAt", "upd
 --
 
 COPY public.postulantes (id, fk_id_tipo_documento, fk_id_usuario, fk_id_estudios, fk_id_carrera, fk_id_estado, nombre, apellido, nacionalidad, fecha_nac, pais, fk_id_provincia, fk_id_ciudad, calle, nro, piso, depto, cp, telefono, cant_materias, alumno_unahur, presentacion, cv, foto, "createdAt", "updatedAt") FROM stdin;
-41232451	1	514	5	2	1	Roman	Riquelme	Argentina	2000-11-23 00:00:00+00	Argentina	34	34028	Mate	3310	0	0		122341823	12	t				2022-12-07 22:37:42.178+00	2022-12-07 22:37:42.178+00
-47744111	1	469	7	2	1	Joel	Yturrieta	Argentina	1997-12-23 00:00:00+00	Argentina	6	6408	Vidt	2165	0	0		123242580	12	f		application/pdf|5ee9a8e2-5f28-48e8-9fa7-6dff1910435a.pdf	image/png|c362eb31-1a72-4cf5-8ae3-e7bed2634a37.png	2022-12-07 03:12:29.528+00	2022-12-07 23:55:55.858+00
-12783917	1	516	8	2	1	Lionel	Messi	Argentina	1995-01-10 00:00:00+00	Argentina	38	38056	Rancho	4095	0	0		1140667933	231	t				2022-12-08 00:38:20.577+00	2022-12-08 00:38:20.577+00
-22647422	1	472	7	2	1	Sebastian	Brandariz	Argentino	1977-03-17 00:00:00+00	Argentina	6	6410	Defilippi	1862	0	0		1132349584	19	f		application/pdf|72679a88-70b0-4f0f-bd06-f583e03a77fe.pdf	image/jpeg|76553d63-29ff-4335-b8cd-0773ccba6841.jpg	2022-12-07 14:09:03.896+00	2022-12-07 14:11:21.058+00
-48781646	1	473	7	2	1	Agustin	Cuevas	Argentina	2000-07-31 00:00:00+00	Argentina	6	6410	Ranchos	4095	0	0		1140667933	22	f		application/pdf|07666d4a-7443-41aa-8aea-ad2f7de6a83a.pdf	image/jpeg|4bf6612b-0ba2-47a1-8c80-37392c06139d.jpg	2022-12-07 16:26:06.364+00	2022-12-07 16:32:37.523+00
-12341234	1	511	6	4	1	Martin	Acuna	Argentina	1997-07-18 00:00:00+00	Argentina	6	6408	Origone	151	0	0		1124083782	12	t				2022-12-07 19:11:48.515+00	2022-12-07 19:11:48.515+00
+41232451	1	514	5	2	1	Juan Roman	Riquelme	Argentina	2000-11-23 00:00:00+00	Argentina	34	34028	Mate	3310	0	0		122341823	12	t				2022-12-07 22:37:42.178+00	2022-12-07 22:37:42.178+00
+41744111	1	469	7	2	1	Joel	Yturrieta	Argentina	1997-12-23 00:00:00+00	Argentina	6	6408	Vidt	2165	0	0		123242580	12	f		application/pdf|5ee9a8e2-5f28-48e8-9fa7-6dff1910435a.pdf	image/png|c362eb31-1a72-4cf5-8ae3-e7bed2634a37.png	2022-12-07 03:12:29.528+00	2022-12-07 23:55:55.858+00
+12783917	1	516	8	2	1	Carlos	Lombari	Argentina	1995-01-10 00:00:00+00	Argentina	38	38056	Rancho	4095	0	0		1140667933	231	t				2022-12-08 00:38:20.577+00	2022-12-08 00:38:20.577+00
+25647424	1	472	7	2	1	Sebastian	Brandariz	Argentino	1977-03-17 00:00:00+00	Argentina	6	6410	Defilippi	1862	0	0		1132349584	19	f		application/pdf|72679a88-70b0-4f0f-bd06-f583e03a77fe.pdf	image/jpeg|76553d63-29ff-4335-b8cd-0773ccba6841.jpg	2022-12-07 14:09:03.896+00	2022-12-07 14:11:21.058+00
+42781646	1	473	7	2	1	Agustin	Cuevas	Argentina	2000-07-31 00:00:00+00	Argentina	6	6410	Ranchos	4095	0	0		1140667933	22	f		application/pdf|07666d4a-7443-41aa-8aea-ad2f7de6a83a.pdf	image/jpeg|4bf6612b-0ba2-47a1-8c80-37392c06139d.jpg	2022-12-07 16:26:06.364+00	2022-12-07 16:32:37.523+00
+12341234	1	511	6	4	1	Pablo	Perez	Argentina	1997-07-18 00:00:00+00	Argentina	6	6408	Origone	151	0	0		1124083782	12	t				2022-12-07 19:11:48.515+00	2022-12-07 19:11:48.515+00
 41744112	1	513	1	2	1	Hannah	Baker	Argentina	1988-12-23 00:00:00+00	Argentina	42	42070	Dante	3510	0	0		123212232	\N	t				2022-12-07 19:20:02.47+00	2022-12-07 19:20:02.47+00
 \.
 
