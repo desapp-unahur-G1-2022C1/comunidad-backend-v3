@@ -1,68 +1,13 @@
 const models = require("../../database/models");
-const { Storage } = require("@google-cloud/storage");
-const { v4: uuidv4 } = require('uuid');
-
-
-let projectId = "red-seeker-365622"; // Google Cloud
-let keyFilename = "./red-seeker-365622-b037b7220de8.json"; // Google Cloud -> Credentials -> Service Accounts
-const storage = new Storage({
-  projectId,
-  keyFilename,
-});
-const bucket = storage.bucket("comunidadstorage"); // Cloud -> Storage
-
-async function renameFile(srcFileName, destFileName) {
-  await bucket.file(srcFileName).rename(destFileName);
-  console.log(
-    `${srcFileName} renamed to ${destFileName}`
-  )};
-
-export const uploadCV = async (req, res) => {
-  try {
-    if (req.file) {
-      const originalName = req.file.originalname;
-      const uuidName = uuidv4();
-      const blob = bucket.file(originalName);
-      const blobStream = blob.createWriteStream();
-      const extension = originalName.split('.',2);
-      const newFullNameFile = uuidName.concat('.', extension[1]);
-      const mimeType = req.file.mimetype;
-      const id = req.headers.id
-      
-      blobStream.on("finish", () => {
-        res.status(200).send("Success");
-        console.log("Success");
-      });
-      blobStream.end(req.file.buffer);
-      setTimeout(() => {
-      renameFile(originalName, newFullNameFile); }, 5000);
-      updateCv(id,mimeType,newFullNameFile);
-    } else throw "algun error con la subida de archivo";
-  }catch (error) {
-    res.status(500).send(error);
-  }
-};
+const fs = require("fs");
 
 export const uploadLogo = async (req, res) => {
   try {
     if (req.file) {
-      const originalName = req.file.originalname;
-      const uuidName = uuidv4();
-      const blob = bucket.file(originalName);
-      const blobStream = blob.createWriteStream();
-      const extension = originalName.split('.',2);
-      const newFullNameFile = uuidName.concat('.', extension[1]);
-      const mimeType = req.file.mimetype;
+      const fileName = req.file.filename;
       const id = req.headers.id
-      
-      blobStream.on("finish", () => {
-        res.status(200).send("Success");
-        console.log("Success");
-      });
-      blobStream.end(req.file.buffer);
-      setTimeout(() => {
-      renameFile(originalName, newFullNameFile); }, 5000);
-      updateLogo(id,mimeType,newFullNameFile);
+      updateLogo(id,fileName);
+      res.status(200).send("Success");
     } else throw "algun error con la subida de archivo";
   }catch (error) {
     res.status(500).send(error);
@@ -72,53 +17,48 @@ export const uploadLogo = async (req, res) => {
 export const uploadFoto = async (req, res) => {
   try {
     if (req.file) {
-      const originalName = req.file.originalname;
-      const uuidName = uuidv4();
-      const blob = bucket.file(originalName);
-      const blobStream = blob.createWriteStream();
-      const extension = originalName.split('.',2);
-      const newFullNameFile = uuidName.concat('.', extension[1]);
-      const mimeType = req.file.mimetype;
+      const fileName = req.file.filename;
       const id = req.headers.id
-      
-      blobStream.on("finish", () => {
-        res.status(200).send("Success");
-        console.log("Success");
-      });
-      blobStream.end(req.file.buffer);
-      setTimeout(() => {
-      renameFile(originalName, newFullNameFile); }, 5000);
-      updateFoto(id,mimeType,newFullNameFile);
+      updateFoto(id,fileName);
+      res.status(200).send("Success");
     } else throw "algun error con la subida de archivo";
   }catch (error) {
     res.status(500).send(error);
   }
 };
 
-
-async function fetchFileFromGoogleStorage(fileName) {
-  const fileObject = bucket.file(fileName);
-  const fileContents = await fileObject.download();
-  return fileContents[0];
+export const uploadCV = async (req, res) => {
+  try {
+    if (req.file) {
+      const fileName = req.file.filename;
+      const id = req.headers.id
+      updateCV(id,fileName);
+      res.status(200).send("Success");
+    } else throw "algun error con la subida de archivo";
+  }catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 export const getFiles = async (req, res) => {
-  let fileName = req.headers.file;
-  let type = req.headers.type;
-  console.log("este es el file", fileName);
-  console.log("este es el type", type);
-  const downloadedImageFile = await fetchFileFromGoogleStorage(fileName);
-  res.status(200);
-  res.type(type);
-  res.send(downloadedImageFile);
+  try {
+    let fileName = req.headers.file;
+    console.log("este es el file", fileName);
+    const downloadedImageFile = fs.createReadStream(
+      `./files/${fileName}`,
+    );
+    res.status(200);
+    res.attachment(fileName);
+    downloadedImageFile.pipe(res);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 //Con esto actualizamos la foto 
-const updateFoto = (id, mimeType, nombreFoto) => {
-  const foto = mimeType.concat('|', nombreFoto);
-
+const updateFoto = (id, nombreFoto) => {
   models.postulantes.update(
-    { foto: foto },
+    { foto: nombreFoto },
     {
       where: {
         id: id,
@@ -128,11 +68,10 @@ const updateFoto = (id, mimeType, nombreFoto) => {
 };
 
 //Con esto actualizamos el CV
-const updateCv = (id, mimeType, nombreCv) => {
-  const cv = mimeType.concat('|', nombreCv);
+const updateCV = (id, nombreCv) => {
 
   models.postulantes.update(
-    { cv: cv },
+    { cv: nombreCv },
     {
       where: {
         id: id,
@@ -142,11 +81,10 @@ const updateCv = (id, mimeType, nombreCv) => {
 };
 
 //Con esto actualizamos el Logo
-const updateLogo = (id, mimeType, nombreLogo) => {
-  const logo = mimeType.concat('|', nombreLogo);
+const updateLogo = (id, nombreLogo) => {
 
   models.empresas.update(
-    { logo: logo },
+    { logo: nombreLogo },
     {
       where: {
         id: id,

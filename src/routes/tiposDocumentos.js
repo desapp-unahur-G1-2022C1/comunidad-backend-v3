@@ -3,7 +3,7 @@ import {
   getAll
 } from '../controllers/tiposDocumentos';
 import { withErrorHandling } from './utils';
-import { validateToken } from '../middlewares/validador';
+import { validateToken } from '../middlewares/validator';
 
 const router = express.Router();
 

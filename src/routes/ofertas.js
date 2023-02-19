@@ -9,7 +9,7 @@ import {
   getPeladas
 } from '../controllers/ofertas';
 import { withErrorHandling } from './utils';
-import { validateToken } from '../middlewares/validador';
+import { validateToken } from '../middlewares/validator';
 
 const router = express.Router();
 

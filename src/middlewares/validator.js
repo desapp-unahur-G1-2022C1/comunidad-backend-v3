@@ -4,8 +4,8 @@ const secret = process.env.SECRET;
 
 
 export const validateToken = async (req, res, next) => {
-    const accessToken = req.query.authorization;
-    console.log(accessToken);
+    const accessToken = req.headers.authorization;
+    console.log("aca va el token", accessToken);
     if(!accessToken) res.send('acceso denegado');
   
     jwt.verify(accessToken, secret, (err, user) =>{

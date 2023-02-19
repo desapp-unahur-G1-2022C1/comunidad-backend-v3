@@ -6,11 +6,11 @@ import {
   deleteUsuario
 } from '../controllers/usuarios';
 import { withErrorHandling } from './utils';
-import { validateToken } from '../middlewares/validador';
+import { validateToken } from '../middlewares/validator';
 
 const router = express.Router();
 
-router.get('/', withErrorHandling(getAll));
+router.get('/', validateToken, withErrorHandling(getAll));
 router.post('/signin', withErrorHandling(signIn));
 router.post('/signup', withErrorHandling(signUp));
 //router.delete('/:id', withErrorHandling(deleteUsuario));

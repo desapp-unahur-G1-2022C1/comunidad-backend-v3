@@ -10,14 +10,14 @@ import {
 
 } from '../controllers/postulaciones';
 import { withErrorHandling } from './utils';
-import { validateToken } from '../middlewares/validador';
+import { validateToken } from '../middlewares/validator';
 
 const router = express.Router();
 
 router.get('/', withErrorHandling(getConFiltros));
-router.post('/',validateToken, withErrorHandling(postPostulaciones));
+router.post('/', withErrorHandling(postPostulaciones));
 router.get('/:id', withErrorHandling(getPorId));
-router.delete('/:id',validateToken, withErrorHandling(deletePostulacion));
-router.put('/:id',validateToken, withErrorHandling(updatePostulaciones));
+router.delete('/:id', withErrorHandling(deletePostulacion));
+router.put('/:id', withErrorHandling(updatePostulaciones));
 
 export default router;

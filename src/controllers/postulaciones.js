@@ -39,6 +39,11 @@ export const getPorIdPostulante = async (req, res) => {
           model: models.empresas,
           attributes: ["id", "nombre_empresa"],
         },
+        {
+          as: "Estado",
+          model: models.estado_postulaciones,
+          attributes: ["id", "nombre_estado"],
+        },
       ],
       where: { fk_id_postulante: idPostulante },
     })
@@ -87,6 +92,11 @@ export const getPorIdOferta = async (req, res) => {
           model: models.empresas,
           attributes: ["id", "nombre_empresa"],
         },
+        {
+          as: "Estado",
+          model: models.estado_postulaciones,
+          attributes: ["id", "nombre_estado"],
+        },
       ],
       where: { fk_id_oferta: idOferta },
     })
@@ -119,6 +129,11 @@ export const getConFiltros = async (req, res) => {
         model: models.empresas,
         attributes: ["id", "nombre_empresa"],
       },
+      {
+        as: "Estado",
+        model: models.estado_postulaciones,
+        attributes: ["id", "nombre_estado"],
+      }
     ],
     }).then(postulaciones => res.send({
       postulaciones
@@ -133,6 +148,7 @@ export const postPostulaciones = async (req, res) => {
       fk_id_oferta: req.body.oferta,
       fk_id_empresa: req.body.empresa,
       contactado: "f",
+      fk_id_estado: 2
     })
     .then(postulaciones => res.status(201).send({ id: postulaciones.id }),
     )
@@ -166,6 +182,12 @@ export const postPostulaciones = async (req, res) => {
             model: models.empresas,
             attributes: ["id", "nombre_empresa"],
           },
+          {
+            as: "Estado",
+            model: models.estado_postulaciones,
+            attributes: ["id", "nombre_estado"],
+          }
+          
         ],
         where: { id },
       })
@@ -203,8 +225,9 @@ export const postPostulaciones = async (req, res) => {
             fk_id_oferta: req.body.oferta,
             fk_id_empresa: req.body.empresa,
             contactado: req.body.contactado,
+            fk_id_estado: req.body.estado,
           },
-          { fields: ["fk_id_postulante", "fk_id_oferta", "fk_id_empresa", "contactado"] }
+          { fields: ["fk_id_postulante", "fk_id_oferta", "fk_id_empresa", "contactado", "fk_id_estado"] }
         )
         .then(() => res.sendStatus(200))
         .catch((error) => {
@@ -228,7 +251,7 @@ export const postPostulaciones = async (req, res) => {
 
 
   export const getCountPostulacionesPorOferta = async (req, res) => {
-    consultapelada = await Op.query("select fk_id_oferta as id_oferta, count(*) as cantidad_postulantes from postulaciones group by fk_id_oferta;", {
+    consultapelada = await Sequelize.Op.query("select fk_id_oferta as id_oferta, count(*) as cantidad_postulantes from postulaciones group by fk_id_oferta;", {
       model: models.postulanciones})
       .then((consultapelada) =>
         res.send({
