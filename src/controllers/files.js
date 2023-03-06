@@ -43,14 +43,19 @@ export const uploadCV = async (req, res) => {
 export const getFiles = async (req, res) => {
   try {
     let fileName = req.headers.file;
-    console.log("este es el file", fileName);
-    const downloadedImageFile = fs.createReadStream(
-      `./files/${fileName}`,
-    );
-    res.status(200);
-    res.attachment(fileName);
-    downloadedImageFile.pipe(res);
-  } catch (error) {
+
+      if (fs.existsSync(`./files/${fileName}`)) {
+        console.log("este es el file", fileName);
+        const downloadedImageFile = fs.createReadStream(
+          `./files/${fileName}`,
+        );
+        res.status(200);
+        res.attachment(fileName);
+        downloadedImageFile.pipe(res);
+      } else {
+        res.status(400).json({ message: "El archivo no existe" });
+      }
+    } catch (error) {
     res.status(500).send(error);
   }
 };
