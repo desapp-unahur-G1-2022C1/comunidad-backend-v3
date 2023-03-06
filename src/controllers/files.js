@@ -10,7 +10,7 @@ export const uploadLogo = async (req, res) => {
       res.status(200).send("Success");
     } else throw "algun error con la subida de archivo";
   }catch (error) {
-    res.status(500).send(error);
+    res.status(400).send(error);
   }
 };
 
@@ -23,7 +23,7 @@ export const uploadFoto = async (req, res) => {
       res.status(200).send("Success");
     } else throw "algun error con la subida de archivo";
   }catch (error) {
-    res.status(500).send(error);
+    res.status(400).send(error);
   }
 };
 
@@ -36,7 +36,7 @@ export const uploadCV = async (req, res) => {
       res.status(200).send("Success");
     } else throw "algun error con la subida de archivo";
   }catch (error) {
-    res.status(500).send(error);
+    res.status(400).send(error);
   }
 };
 
