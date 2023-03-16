@@ -61,6 +61,8 @@ export const getPorIdOferta = async (req, res) => {
   let paginaComoNumero = Number.parseInt(req.query.pagina);
   let limiteComoNumero = Number.parseInt(req.query.limite);
   let idOferta = req.query.id;
+  let idEstado = req.query.idEstado;
+  let ordenarPor = req.query.ordenar;
 
   let pagina = 0;
   if (!Number.isNaN(paginaComoNumero) && paginaComoNumero > 0) {
@@ -71,6 +73,14 @@ export const getPorIdOferta = async (req, res) => {
   if (!Number.isNaN(limiteComoNumero) && limiteComoNumero > 0) {
     limite = limiteComoNumero;
   }
+
+  if (typeof idEstado === "undefined") {
+    idEstado = 1;
+ }
+
+ if (typeof ordenarPor === "undefined") {
+  ordenarPor = "createdAt";
+}
  
   models.postulaciones
     .findAndCountAll({
@@ -98,7 +108,19 @@ export const getPorIdOferta = async (req, res) => {
           attributes: ["id", "nombre_estado"],
         },
       ],
-      where: { fk_id_oferta: idOferta },
+      where: {
+        [Op.and]: [
+          {
+            fk_id_oferta: {
+              [Op.eq]: [idOferta]
+            },
+            fk_id_estado: {
+              [Op.eq]: [idEstado],
+            },
+          },
+        ],
+      },
+      order: [[ordenarPor, 'DESC'],]
     })
     .then((postulaciones) =>
       res.send({
