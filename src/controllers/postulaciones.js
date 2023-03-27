@@ -110,6 +110,7 @@ export const getPorIdOferta = async (req, res) => {
       ],
       where: {
         //[Op.and]: [
+          //
         [Op.or]: [  
           {
             fk_id_oferta: {
