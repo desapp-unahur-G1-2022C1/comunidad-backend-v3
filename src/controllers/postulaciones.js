@@ -116,8 +116,7 @@ export const getPorIdOferta = async (req, res) => {
             },
             fk_id_estado: {
               //[Op.eq]: [idEstado],
-              //trae todos si no se especifica
-              [Op.iLike]: [idEstado],
+              [Op.iLike]: `%${idEstado}%`,
             },
           },
         ],
