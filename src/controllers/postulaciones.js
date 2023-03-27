@@ -75,7 +75,7 @@ export const getPorIdOferta = async (req, res) => {
   }
 
   if (typeof idEstado === "undefined") {
-    idEstado = '_';
+    idEstado = '1,2,3';
  }
 
  if (typeof ordenarPor === "undefined") {
@@ -117,7 +117,7 @@ export const getPorIdOferta = async (req, res) => {
             fk_id_estado: {
               //[Op.eq]: [idEstado],
               //[Op.iLike]: `%${idEstado}%`,
-              [Op.in]: [1, 2 , 3]
+              [Op.in]: [`${idEstado}`],
             },
           },
         ],
